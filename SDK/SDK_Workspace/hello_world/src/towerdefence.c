@@ -104,9 +104,18 @@ int creepsRem = MAXCREEPS;
 int currentI = 0;
 int btnCnt = 0;
 int currentHP = 3;
-int coins = 20;
+int coins = 0;
 
 char lastKey = 'n';
+unsigned char box[3] = {DIRT, DIRT, DIRT};
+/*
+typedef struct{
+	int x;
+	int y;
+}CreepPosition;
+
+CreepPosition creepPositions[3];
+*/
 
 void init(){
 
@@ -235,7 +244,6 @@ void drawMap(){
 					drawSprite(112,48,column*16,row*16,16,16);
 				}
 
-
 			}
 		}
 	}
@@ -295,6 +303,20 @@ void printCoins(){
 
 }
 
+//printing the number of lives left
+void printLives(){
+	int l,r;
+	l=currentHP/10;
+	r=currentHP%10;
+	printNum(8,8,r);
+	if(l!=0){
+		printNum(8,0,l);
+	}
+	else{
+		drawSprite(16,0,0,8,8,8);
+	}
+}
+
 //printing the number of creeps left
 void printCreepNumb(){
 	int l,r;
@@ -310,8 +332,9 @@ void printCreepNumb(){
 
 }
 
-//moving creep forward
+//moving creep forward - modify
 void moveCreep(){
+	/*
 	int i = dirtLen;
 	if(map1[rowDirtFields[i]][columnDirtFields[i]] != DIRT){
 		if(map1[rowDirtFields[i]][columnDirtFields[i]]==CREEP4){
@@ -362,10 +385,48 @@ void moveCreep(){
 				mapChanges[rowDirtFields[i]][columnDirtFields[i]] = true;
 			}
 		}
+	}*/
+	// 2, 10, 17
+	static int cols[3] = {2, 10, 17};
+	int i,j;
+	unsigned char temp;
+	for(i = 0; i < 3; i++){
+		j = 0;
+		while(j+1 <= SIZEROW){
+			if(map1[j][cols[i]] == CREEP || map1[j][cols[i]] == CREEP4){
+				temp = map1[j][cols[i]];
+				if(j+1 != (SIZEROW - 1)){
+					map1[j][cols[i]] = GRASS;
+					map1[j+1][cols[i]] = temp;
+					mapChanges[j][cols[i]] = true;
+					mapChanges[j+1][cols[i]] = true;
+					j += 2;
+				}else{
+					if(temp == CREEP){
+						if(box[i] == DIRT){
+							coins += 1;
+						}else{
+							currentHP--;
+						}
+					}else if(temp == CREEP4){
+						if(box[i] == DIRT){
+							currentHP--;
+						}
+					}
+					map1[j][cols[i]] = GRASS;
+					mapChanges[j][cols[i]] = true;
+					//creepsRem--;
+					j++;
+				}
+			}
+			else{
+				j++;
+			}
+		}
 	}
-
-	drawMap();
 }
+
+
 
 void getDirtPos(int startRow,int startColumn){
 	int prevRow,prevColumn;
@@ -452,7 +513,6 @@ char getPressedKey() {
 	if ((Xil_In32(XPAR_MY_PERIPHERAL_0_BASEADDR) & RIGHT) == 0) {
 		pressedKey = 'r';
 	}
-
 	else if ((Xil_In32(XPAR_MY_PERIPHERAL_0_BASEADDR) & LEFT) == 0) {
 		pressedKey = 'l';
 	}
@@ -462,14 +522,15 @@ char getPressedKey() {
 	else if ((Xil_In32(XPAR_MY_PERIPHERAL_0_BASEADDR) & CENTER) == 0) {
 		pressedKey = 'R';
 	}
-
-	if (pressedKey != lastKey) {
-		lastKey = pressedKey;
-		return pressedKey;
+	else if((Xil_In32(XPAR_MY_PERIPHERAL_0_BASEADDR) & SW0) == 0){
+		pressedKey = '0';
 	}
-	else {
-		return 'n';
+	else if((Xil_In32(XPAR_MY_PERIPHERAL_0_BASEADDR) & SW1) == 0){
+		pressedKey = '1';
+	}else{
+		pressedKey = 'n';
 	}
+	return pressedKey;
 }
 
 void placeTower(){
@@ -592,20 +653,45 @@ void placeTower(){
 
 
 	}
-	//mapChanges[rowTowerFields[currentI]][columnTowerFields[currentI]] = true;
+	mapChanges[rowTowerFields[currentI]][columnTowerFields[currentI]] = true;
 	drawMap();
 
 }
 
 void insertCreep(){
-	//////////////////////////////////////////////////////////////////////////////////////
-	//static int DONTTOUCH = 0; /// NEMOJ DIRATI OVO NIKADA NI SLUCAJNO
-	//DONTTOUCH++;			  /// A NI OVO!!!!!!!!!!!!!!!!!! NIKADA :) OZBILJNO TO MISLIM.... KENJICU NE SERI!
-	//////////////////////////////////////////////////////////////////////////////////////
 
-	map1[rowDirtFields[0]][columnDirtFields[0]] = CREEP;
-	mapChanges[rowDirtFields[0]][columnDirtFields[0]] = true;
-	drawMap();
+	int firstShow, secondShow, thirdShow, temp;
+
+	firstShow = rand() % 2;
+	secondShow = rand() % 2;
+	thirdShow = rand() % 2;
+
+	if(firstShow == 1)
+	{
+		temp = rand() % 2;
+		if(temp == 1)
+			map1[0][2] = CREEP;
+		else
+			map1[0][2] = CREEP4;
+		mapChanges[0][2] = true;
+	}
+	if(secondShow){
+		temp = rand() % 2;
+		if(temp == 1)
+			map1[0][10] = CREEP;
+		else
+			map1[0][10] = CREEP4;
+		mapChanges[0][10] = true;
+	}
+
+	if(thirdShow){
+		temp = rand() % 2;
+		if(temp == 1)
+			map1[0][17] = CREEP;
+		else
+			map1[0][17] = CREEP4;
+		mapChanges[0][17] = true;
+	}
 	creepsSpawned++;
 }
 
@@ -699,11 +785,6 @@ void drawWon(){
 void drawEndGame(){
 	int row,column;
 	while(1){
-
-		if((Xil_In32(XPAR_MY_PERIPHERAL_0_BASEADDR) & CENTER) == 0){
-			break;
-		}
-
 		for (row = 0; row < SIZEROW; row++) {
 			for (column = 0; column < SIZECOLUMN; column++) {
 				if (gameOver[row][column] == DIRT) {
@@ -735,14 +816,16 @@ bool lvl1(){
 		}
 	}
 
-	int turrentOneFire=0, turrentTwoFire=0;
+	//int turrentOneFire=0, turrentTwoFire=0;
 	unsigned int placeTowerSpeed=0;
 	unsigned int creepSpeed = 0;
 	int creepTime = 0;
+	char pressedKey;
+	int dummy;
 
 	// reset global variables
 	currentHP = 3;
-	coins = 20;
+	coins = 0;
 	creepsSpawned = 0;
 	currentI = 0;
 	endGame = false;
@@ -754,42 +837,75 @@ bool lvl1(){
 	drawMap(); // init map
 
 	printCoins();
-	printCreepNumb();
+	printLives();
+	//printCreepNumb();
+
 	drawSprite(8,64,16,0,8,8);
 	drawSprite(8,72,16,8,8,8);
 
-	getDirtPos(0,2);
-	getTowerPos();
+	//getDirtPos(0,2);
+	//getTowerPos();
 
 	while(1){
 
-			if(endGame){
+			if(endGame || currentHP == 0){
 				passed = false;
 				break;
 			}
 
-			if (creepsRem == 0){
+			if (creepsRem <= 0){
 				passed = true;
 				break;
 			}
+
 			if (placeTowerSpeed == 10000){
-				placeTower();
-				placeTowerSpeed = 0;
+				// Promena kutijica.
+				for(dummy = 0; dummy < 1000; dummy++){
+					pressedKey = getPressedKey();
+					if(pressedKey != 'n'){
+						if(pressedKey == 'r'){
+							if(box[2] == DIRT){
+								box[2] = BUSH;
+							}else{
+								box[2] = DIRT;
+							}
+							map1[SIZEROW-1][17] = box[2];
+							mapChanges[SIZEROW-1][17] = true;
+						}else if(pressedKey == 'l'){
+							if(box[0] == DIRT){
+								box[0] = BUSH;
+							}else{
+								box[0] = DIRT;
+							}
+							map1[SIZEROW-1][2] = box[0];
+							mapChanges[SIZEROW-1][2] = true;
+						}
+						else if(pressedKey == 'R'){
+							if(box[1] == DIRT){
+								box[1] = BUSH;
+							}else{
+								box[1] = DIRT;
+							}
+							map1[SIZEROW-1][10] = box[1];
+							mapChanges[SIZEROW-1][10] = true;
+						}
+						placeTowerSpeed = 0;
+						break;
+					}
+				}
 			}
 
 			if (creepSpeed == 1000000){
 				if(creepTime == 5){
-					if(creepsSpawned < MAXCREEPS){
-						insertCreep();
-					}
-
+					insertCreep();
 					creepTime = 0;
-
 				}
 
 				moveCreep();
-				printCreepNumb();
-
+				printCoins();
+				printLives();
+				drawMap();
+				/*
 				if(turrentOneFire == 6 ){
 					turretOneFire();
 					turrentOneFire = 0;
@@ -802,17 +918,18 @@ bool lvl1(){
 
 				turrentOneFire++;
 				turrentTwoFire++;
+				*/
 				creepTime++;
 				creepSpeed=0;
 			}
 
 			creepSpeed++;
 			placeTowerSpeed++;
-
 		}
 	return passed;
 }
 
+/*
 bool lvl2(){
 	// load lvl 2
 	int row,column;
@@ -868,7 +985,6 @@ bool lvl2(){
 			if (creepSpeed == 1000000){
 				moveCreep();
 				printCreepNumb();
-
 				if(creepTime == 5){
 					if(creepsSpawned < MAXCREEPS){
 						insertCreep();
@@ -900,11 +1016,11 @@ bool lvl2(){
 		}
 	return passed;
 }
-
-
+*/
 
 int main() {
 
+	srand(time(0));
 	cleanup_platform();
 
 	init_platform();
@@ -913,11 +1029,13 @@ int main() {
 	while (1){
 		if (lvl1()){
 			drawWinLvl();
+			/*
 			if (lvl2()){
 				drawWon();
 			} else {
 				drawEndGame();
 			}
+			*/
 		} else {
 			drawEndGame();
 		}
