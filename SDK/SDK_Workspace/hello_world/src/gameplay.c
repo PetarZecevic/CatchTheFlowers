@@ -250,7 +250,7 @@ void moveItems()
 		{
 			if(box[i] == DIRT) // flower
 				gameStats.coinsCollected += 1;
-			else
+			else if(box[i] == BUSH)
 				gameStats.healthPoints--;
 		}
 		else if(temp == CREEP4) // rock
@@ -346,10 +346,54 @@ void drawEndGame()
 	}
 }
 
+// Get input from user, and check whether to change type of boxes.
+void updateBoxes(){
+	// Change box type.
+	int dummy;
+	char pressedKey;
+	for(dummy = 0; dummy < 1000; dummy++)
+	{
+		pressedKey = getPressedKey();
+		if(pressedKey != 'n')
+		{
+			if(pressedKey == 'r')
+			{
+				if(box[2] == DIRT)
+					box[2] = BUSH;
+				else
+					box[2] = DIRT;
+
+				map1[SIZEROW-1][17] = box[2];
+				mapChanges[SIZEROW-1][17] = true;
+			}
+			else if(pressedKey == 'l')
+			{
+				if(box[0] == DIRT)
+					box[0] = BUSH;
+				else
+					box[0] = DIRT;
+
+				map1[SIZEROW-1][2] = box[0];
+				mapChanges[SIZEROW-1][2] = true;
+			}
+			else if(pressedKey == 'R')
+			{
+				if(box[1] == DIRT)
+					box[1] = BUSH;
+				else
+					box[1] = DIRT;
+
+				map1[SIZEROW-1][10] = box[1];
+				mapChanges[SIZEROW-1][10] = true;
+			}
+			break;
+		}
+	}
+}
+
 // First level gameplay, user plays until he loses all health points.
 void gameLoop()
 {
-
 	// Load first map background.
 	int row,column;
 	for (row = 0; row < SIZEROW; row++)
@@ -365,8 +409,6 @@ void gameLoop()
 	unsigned int userInputSpeed=0;
 	unsigned int itemSpeed = 0;
 	int insertItemTime = 0;
-	char pressedKey;
-	int dummy;
 
 	// Reset global variables.
 	gameStats.healthPoints = 3;
@@ -392,46 +434,8 @@ void gameLoop()
 
 		if (userInputSpeed == 10000)
 		{
-			// Change box type.
-			for(dummy = 0; dummy < 1000; dummy++)
-			{
-				pressedKey = getPressedKey();
-				if(pressedKey != 'n')
-				{
-					if(pressedKey == 'r')
-					{
-						if(box[2] == DIRT)
-							box[2] = BUSH;
-						else
-							box[2] = DIRT;
-
-						map1[SIZEROW-1][17] = box[2];
-						mapChanges[SIZEROW-1][17] = true;
-					}
-					else if(pressedKey == 'l')
-					{
-						if(box[0] == DIRT)
-							box[0] = BUSH;
-						else
-							box[0] = DIRT;
-
-						map1[SIZEROW-1][2] = box[0];
-						mapChanges[SIZEROW-1][2] = true;
-					}
-					else if(pressedKey == 'R')
-					{
-						if(box[1] == DIRT)
-							box[1] = BUSH;
-						else
-							box[1] = DIRT;
-
-						map1[SIZEROW-1][10] = box[1];
-						mapChanges[SIZEROW-1][10] = true;
-					}
-					userInputSpeed = 0;
-					break;
-				}
-			}
+			updateBoxes();
+			userInputSpeed = 0;
 		}
 
 		if (itemSpeed == 1000000)
