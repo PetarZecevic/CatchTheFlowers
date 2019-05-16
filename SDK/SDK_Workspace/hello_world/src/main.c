@@ -6,6 +6,8 @@
 
 int main() {
 
+	// Ima bug kada se desi da pada kamen na otvorenu kutijicu.
+	// Tada ne azurira broj osvojenih poena.
 	srand(time(NULL));
 	cleanup_platform();
 

@@ -242,41 +242,35 @@ void moveItems()
 	unsigned char temp;
 	for(i = 0; i < 3; i++)
 	{
-		j = 0;
-		while(j+1 <= SIZEROW)
+		j = SIZEROW-2;
+
+		// Check for final condition.
+		temp = map1[j][itemColumns[i]];
+		if(temp == CREEP)
+		{
+			if(box[i] == DIRT) // flower
+				gameStats.coinsCollected += 1;
+			else
+				gameStats.healthPoints--;
+		}
+		else if(temp == CREEP4) // rock
+		{
+			if(box[i] == DIRT)
+				gameStats.healthPoints--;
+		}
+		map1[j][itemColumns[i]] = GRASS;
+		mapChanges[j][itemColumns[i]] = true;
+
+		for(j--; j >= 0; j--)
 		{
 			if(map1[j][itemColumns[i]] == CREEP || map1[j][itemColumns[i]] == CREEP4)
 			{
 				temp = map1[j][itemColumns[i]];
-				if(j+1 != (SIZEROW - 1))
-				{
-					map1[j][itemColumns[i]] = GRASS;
-					map1[j+1][itemColumns[i]] = temp;
-					mapChanges[j][itemColumns[i]] = true;
-					mapChanges[j+1][itemColumns[i]] = true;
-					j += 2;
-				}
-				else
-				{
-					if(temp == CREEP)
-					{
-						if(box[i] == DIRT)
-							gameStats.coinsCollected += 1;
-						else
-							gameStats.healthPoints--;
-					}
-					else if(temp == CREEP4)
-					{
-						if(box[i] == DIRT)
-							gameStats.healthPoints--;
-					}
-					map1[j][itemColumns[i]] = GRASS;
-					mapChanges[j][itemColumns[i]] = true;
-					j++;
-				}
+				map1[j][itemColumns[i]] = GRASS;
+				map1[j+1][itemColumns[i]] = temp;
+				mapChanges[j][itemColumns[i]] = true;
+				mapChanges[j+1][itemColumns[i]] = true;
 			}
-			else
-				j++;
 		}
 	}
 }
