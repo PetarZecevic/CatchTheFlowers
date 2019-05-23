@@ -22,11 +22,15 @@
 #include "xil_exception.h"
 #include <stdlib.h>     /* srand, rand */
 #include "vga_periph_mem.h"
-#include "towerdefence_sprites.h"
+//#include "towerdefence_sprites.h"
 #include "platform.h"
 #include "xparameters.h"
 #include "gameplay.h"
 #include "game_config.h"
+#include "bunny-left-1.c"
+#include "bunny-left-2.c"
+#include "sky.c"
+#include "ground.c"
 
 
 GameStats gameStats;
@@ -56,6 +60,7 @@ void init()
 			XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x20, 1);
 }
 
+/*
 //extracting pixel data from a picture for printing out on the display
 void drawSprite(int in_x, int in_y, int out_x, int out_y, int width, int height)
 {
@@ -76,6 +81,111 @@ void drawSprite(int in_x, int in_y, int out_x, int out_y, int width, int height)
 					* towerdefence_sprites.bytes_per_pixel + 1] >> 5;
 			B = towerdefence_sprites.pixel_data[ii
 					* towerdefence_sprites.bytes_per_pixel + 2] >> 5;
+			R <<= 6;
+			G <<= 3;
+			RGB = R | G | B;
+
+			VGA_PERIPH_MEM_mWriteMemory(
+					XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + GRAPHICS_MEM_OFF
+							+ oi * 4 , RGB);
+		}
+	}
+}
+*/
+
+void drawBunny(int in_x, int in_y, int out_x, int out_y, int width, int height, int bunny)
+{
+	int x, y, ox, oy, oi, iy, ix, ii, R, G, B, RGB;
+	for (y = 0; y < height; y++)
+	{
+		for (x = 0; x < width; x++)
+		{
+			ox = out_x + x;
+			oy = out_y + y;
+			oi = oy * 320 + ox;
+			ix = in_x + x;
+			iy = in_y + y;
+
+			if(bunny == 0)
+			{
+				ii = iy * bunny_left_1.width + ix;
+				R = bunny_left_1.pixel_data[ii
+						* bunny_left_1.bytes_per_pixel] >> 5;
+				G = bunny_left_1.pixel_data[ii
+						* bunny_left_1.bytes_per_pixel + 1] >> 5;
+				B = bunny_left_1.pixel_data[ii
+						* bunny_left_1.bytes_per_pixel + 2] >> 5;
+			}
+			else if(bunny == 1)
+			{
+				ii = iy * bunny_left_2.width + ix;
+				R = bunny_left_2.pixel_data[ii
+						* bunny_left_2.bytes_per_pixel] >> 5;
+				G = bunny_left_2.pixel_data[ii
+						* bunny_left_2.bytes_per_pixel + 1] >> 5;
+				B = bunny_left_2.pixel_data[ii
+						* bunny_left_2.bytes_per_pixel + 2] >> 5;
+			}
+			R <<= 6;
+			G <<= 3;
+			RGB = R | G | B;
+
+			VGA_PERIPH_MEM_mWriteMemory(
+					XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + GRAPHICS_MEM_OFF
+							+ oi * 4 , RGB);
+		}
+	}
+}
+
+void drawGround(int in_x, int in_y, int out_x, int out_y, int width, int height)
+{
+	int x, y, ox, oy, oi, iy, ix, ii, R, G, B, RGB;
+	for (y = 0; y < height; y++)
+	{
+		for (x = 0; x < width; x++)
+		{
+			ox = out_x + x;
+			oy = out_y + y;
+			oi = oy * 320 + ox;
+			ix = in_x + x;
+			iy = in_y + y;
+			ii = iy * ground.width + ix;
+			R = ground.pixel_data[ii
+					* ground.bytes_per_pixel] >> 5;
+			G = ground.pixel_data[ii
+					* ground.bytes_per_pixel + 1] >> 5;
+			B = ground.pixel_data[ii
+					* ground.bytes_per_pixel + 2] >> 5;
+			R <<= 6;
+			G <<= 3;
+			RGB = R | G | B;
+
+			VGA_PERIPH_MEM_mWriteMemory(
+					XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + GRAPHICS_MEM_OFF
+							+ oi * 4 , RGB);
+		}
+	}
+}
+
+void drawSky(int in_x, int in_y, int out_x, int out_y, int width, int height)
+{
+	int x, y, ox, oy, oi, iy, ix, ii, R, G, B, RGB;
+	for (y = 0; y < height; y++)
+	{
+		for (x = 0; x < width; x++)
+		{
+			ox = out_x + x;
+			oy = out_y + y;
+			oi = oy * 320 + ox;
+			ix = in_x + x;
+			iy = in_y + y;
+			ii = iy * sky.width + ix;
+			R = sky.pixel_data[ii
+					* sky.bytes_per_pixel] >> 5;
+			G = sky.pixel_data[ii
+					* sky.bytes_per_pixel + 1] >> 5;
+			B = sky.pixel_data[ii
+					* sky.bytes_per_pixel + 2] >> 5;
 			R <<= 6;
 			G <<= 3;
 			RGB = R | G | B;

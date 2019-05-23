@@ -5,7 +5,7 @@ static const struct {
   unsigned int 	 height;
   unsigned int 	 bytes_per_pixel; /* 2:RGB16, 3:RGB, 4:RGBA */ 
   unsigned char	 pixel_data[48 * 80 * 4 + 1];
-} gimp_image = {
+} bunny_down_2 = {
   48, 80, 4,
   "\351\372\375\000\351\372\375\000\351\372\375\000\351\372\375\000\351\372\375\000\241"
   "\262\265\000\241\262\265\000\241\253\254\377\001\002\000\377\004\003\000\377\010\002\000\377\014"

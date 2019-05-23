@@ -11,5 +11,8 @@ void insertItems();
 void moveItems();
 char getPressedKey();
 void gameLoop();
+void drawBunny(int in_x, int in_y, int out_x, int out_y, int width, int height, int bunny);
+void drawSky(int in_x, int in_y, int out_x, int out_y, int width, int height);
+void drawGround(int in_x, int in_y, int out_x, int out_y, int width, int height);
 
 #endif /* GAMEPLAY_H_ */
