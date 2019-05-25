@@ -1,0 +1,4 @@
+filter sharpen paramteri:
+	9.496
+	0.301
+dva puta je filtrirano ovim filterom

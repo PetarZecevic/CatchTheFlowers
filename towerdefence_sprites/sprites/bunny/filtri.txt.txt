@@ -1,3 +1,0 @@
-filter sharpen paramteri:
-	9.496
-	0.301
