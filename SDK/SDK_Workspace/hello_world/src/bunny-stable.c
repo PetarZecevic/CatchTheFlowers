@@ -1,11 +1,7 @@
 /* GIMP RGB C-Source image dump (bunny-stable.c) */
+#include "bunny.h"
 
-static const struct {
-  unsigned int 	 width;
-  unsigned int 	 height;
-  unsigned int 	 bytes_per_pixel; /* 2:RGB16, 3:RGB, 4:RGBA */ 
-  unsigned char	 pixel_data[48 * 80 * 3 + 1];
-} bunny_stable = {
+const BunnySprite bunny_stable = {
   48, 80, 3,
   "\351\374\377\360\377\377\361\377\377\363\377\377\364\377\377\360\377\377"
   "\360\377\377\361\377\377\363\377\377\364\377\377\360\377\377\360\377\377"

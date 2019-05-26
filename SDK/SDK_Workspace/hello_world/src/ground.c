@@ -1,11 +1,7 @@
 /* GIMP RGB C-Source image dump (ground.c) */
+#include "sprite.h"
 
-static const struct {
-  unsigned int 	 width;
-  unsigned int 	 height;
-  unsigned int 	 bytes_per_pixel; /* 2:RGB16, 3:RGB, 4:RGBA */ 
-  unsigned char	 pixel_data[16 * 16 * 3 + 1];
-} ground = {
+const BackgroundSprite ground = {
   16, 16, 3,
   "x\302\000\220\323\000\201\312\000~\312\000\212\332\000}\327\000i\325\000n\310\000l\322\000"
   "\033\257\000\000~\000\000\273\000\000\270\000\066\311\000B\320\000\000\305\000t\301\000\226\327\000{"

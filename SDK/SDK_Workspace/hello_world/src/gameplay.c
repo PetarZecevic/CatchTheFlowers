@@ -22,16 +22,11 @@
 #include "xil_exception.h"
 #include <stdlib.h>     /* srand, rand */
 #include "vga_periph_mem.h"
-//#include "towerdefence_sprites.h"
-#include "platform.h"
 #include "xparameters.h"
 #include "gameplay.h"
 #include "game_config.h"
-#include "bunny-left-1.c"
-#include "bunny-left-2.c"
-#include "sky.c"
-#include "ground.c"
-
+#include "bunny.h"
+#include "sprite.h"
 
 GameStats gameStats;
 unsigned char map1[SIZEROW][SIZECOLUMN] = {{[0 ... SIZEROW-1] = GRASS}, {[0 ... SIZECOLUMN-1] = GRASS}};
@@ -39,26 +34,6 @@ unsigned char box[3] = {DIRT, DIRT, DIRT}; // Boxes that collect flowers, DIRT-m
 int itemColumns[3] = {2, 10, 17}; // Columns on map from which items will appear.
 bool endGame = false;
 
-void init()
-{
-
-	VGA_PERIPH_MEM_mWriteMemory(
-				XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x00, 0x0); // direct mode   0
-	VGA_PERIPH_MEM_mWriteMemory(
-			XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x04, 0x3); // display_mode  1
-	VGA_PERIPH_MEM_mWriteMemory(
-			XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x08, 0x0); // show frame      2
-	VGA_PERIPH_MEM_mWriteMemory(
-			XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x0C, 0xff); // font size       3
-	VGA_PERIPH_MEM_mWriteMemory(
-			XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x10, 0xFFFFFF); // foreground 4
-	VGA_PERIPH_MEM_mWriteMemory(
-			XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x14,0x008000); // background color 5
-	VGA_PERIPH_MEM_mWriteMemory(
-			XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x18, 0xFF0000); // frame color      6
-	VGA_PERIPH_MEM_mWriteMemory(
-			XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x20, 1);
-}
 
 /*
 //extracting pixel data from a picture for printing out on the display
@@ -92,110 +67,6 @@ void drawSprite(int in_x, int in_y, int out_x, int out_y, int width, int height)
 	}
 }
 */
-
-void drawBunny(int in_x, int in_y, int out_x, int out_y, int width, int height, int bunny)
-{
-	int x, y, ox, oy, oi, iy, ix, ii, R, G, B, RGB;
-	for (y = 0; y < height; y++)
-	{
-		for (x = 0; x < width; x++)
-		{
-			ox = out_x + x;
-			oy = out_y + y;
-			oi = oy * 320 + ox;
-			ix = in_x + x;
-			iy = in_y + y;
-
-			if(bunny == 0)
-			{
-				ii = iy * bunny_left_1.width + ix;
-				R = bunny_left_1.pixel_data[ii
-						* bunny_left_1.bytes_per_pixel] >> 5;
-				G = bunny_left_1.pixel_data[ii
-						* bunny_left_1.bytes_per_pixel + 1] >> 5;
-				B = bunny_left_1.pixel_data[ii
-						* bunny_left_1.bytes_per_pixel + 2] >> 5;
-			}
-			else if(bunny == 1)
-			{
-				ii = iy * bunny_left_2.width + ix;
-				R = bunny_left_2.pixel_data[ii
-						* bunny_left_2.bytes_per_pixel] >> 5;
-				G = bunny_left_2.pixel_data[ii
-						* bunny_left_2.bytes_per_pixel + 1] >> 5;
-				B = bunny_left_2.pixel_data[ii
-						* bunny_left_2.bytes_per_pixel + 2] >> 5;
-			}
-			R <<= 6;
-			G <<= 3;
-			RGB = R | G | B;
-
-			VGA_PERIPH_MEM_mWriteMemory(
-					XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + GRAPHICS_MEM_OFF
-							+ oi * 4 , RGB);
-		}
-	}
-}
-
-void drawGround(int in_x, int in_y, int out_x, int out_y, int width, int height)
-{
-	int x, y, ox, oy, oi, iy, ix, ii, R, G, B, RGB;
-	for (y = 0; y < height; y++)
-	{
-		for (x = 0; x < width; x++)
-		{
-			ox = out_x + x;
-			oy = out_y + y;
-			oi = oy * 320 + ox;
-			ix = in_x + x;
-			iy = in_y + y;
-			ii = iy * ground.width + ix;
-			R = ground.pixel_data[ii
-					* ground.bytes_per_pixel] >> 5;
-			G = ground.pixel_data[ii
-					* ground.bytes_per_pixel + 1] >> 5;
-			B = ground.pixel_data[ii
-					* ground.bytes_per_pixel + 2] >> 5;
-			R <<= 6;
-			G <<= 3;
-			RGB = R | G | B;
-
-			VGA_PERIPH_MEM_mWriteMemory(
-					XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + GRAPHICS_MEM_OFF
-							+ oi * 4 , RGB);
-		}
-	}
-}
-
-void drawSky(int in_x, int in_y, int out_x, int out_y, int width, int height)
-{
-	int x, y, ox, oy, oi, iy, ix, ii, R, G, B, RGB;
-	for (y = 0; y < height; y++)
-	{
-		for (x = 0; x < width; x++)
-		{
-			ox = out_x + x;
-			oy = out_y + y;
-			oi = oy * 320 + ox;
-			ix = in_x + x;
-			iy = in_y + y;
-			ii = iy * sky.width + ix;
-			R = sky.pixel_data[ii
-					* sky.bytes_per_pixel] >> 5;
-			G = sky.pixel_data[ii
-					* sky.bytes_per_pixel + 1] >> 5;
-			B = sky.pixel_data[ii
-					* sky.bytes_per_pixel + 2] >> 5;
-			R <<= 6;
-			G <<= 3;
-			RGB = R | G | B;
-
-			VGA_PERIPH_MEM_mWriteMemory(
-					XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + GRAPHICS_MEM_OFF
-							+ oi * 4 , RGB);
-		}
-	}
-}
 
 void drawMap()
 {
