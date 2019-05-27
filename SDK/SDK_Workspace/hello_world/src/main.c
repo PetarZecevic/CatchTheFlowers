@@ -22,18 +22,18 @@ void test()
 
 	Bunny bunnies[3];
 
-	Bunny_Init(bunnies[0], 10, 2);
-	Bunny_Init(bunnies[1], 10, 9);
-	Bunny_Init(bunnies[2], 10, 15);
+	Bunny_Init(&bunnies[0], 10, 2);
+	Bunny_Init(&bunnies[1], 10, 9);
+	Bunny_Init(&bunnies[2], 10, 15);
 
 	while(1)
 	{
 		// Delay.
-		for(int i = 0; i < 3000000; i++);
+		for(int i = 0; i < 1500000; i++);
 		for(int j = 0; j < 3; j++)
 		{
-			Bunny_ChangeFrame(bunnies[j]);
-			drawBunny(bunnies[j]);
+			drawBunny(&bunnies[j]);
+			Bunny_ChangeFrame(&bunnies[j]);
 		}
 	}
 }

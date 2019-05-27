@@ -7,8 +7,7 @@
 // Init graphics.
 void init();
 // We consider row and column as sprite of dimension 16x16.
-void drawBunnySprite(unsigned int row, unsigned int column, const BunnySprite bunny);
 void drawBackgroundSprite(unsigned int row, unsigned int column, const BackgroundSprite background);
-void drawBunny(Bunny bunny);
+void drawBunny(Bunny* bunny);
 
 #endif /* RENDER_H_ */

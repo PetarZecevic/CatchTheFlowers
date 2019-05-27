@@ -2,10 +2,11 @@
 
 #include "vga_periph_mem.h"
 #include "xparameters.h"
-
-const BunnySprite bunny_left_1, bunny_left_2, bunny_right_1,
-	bunny_right_2, bunny_stable, bunny_transit_1, bunny_transit_2, bunny_down_1;
-const BackgroundSprite ground, sky;
+#include "bunny-left-2.c"
+#include "bunny-left-1.c"
+#include "bunny-stable.c"
+#include "bunny-right-1.c"
+#include "bunny-right-2.c"
 
 void init()
 {
@@ -28,8 +29,7 @@ void init()
 			XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x20, 1);
 }
 
-static void drawSprite(int out_x, int out_y, const int spriteWidth, const int spriteHeight,
-		const int spriteBytesPerPixel, const unsigned char* spriteData)
+static void drawSprite(int out_x, int out_y, int spriteWidth, int spriteHeight, int spriteBytesPerPixel, const unsigned char* spriteData)
 {
 	int x, y, ox, oy, oi, ii, R, G, B, RGB;
 	for (y = 0; y < spriteHeight; y++)
@@ -54,14 +54,6 @@ static void drawSprite(int out_x, int out_y, const int spriteWidth, const int sp
 	}
 }
 
-void drawBunnySprite(unsigned int row, unsigned int column, const BunnySprite bunny)
-{
-	int offset_y = row*16;
-	int offset_x = column*16;
-	drawSprite(offset_x, offset_y, bunny.width, bunny.height, bunny.bytes_per_pixel, bunny.pixel_data);
-}
-
-
 void drawBackgroundSprite(unsigned int row, unsigned int column, const BackgroundSprite background)
 {
 	int offset_y = row*16;
@@ -69,25 +61,30 @@ void drawBackgroundSprite(unsigned int row, unsigned int column, const Backgroun
 	drawSprite(offset_x, offset_y, background.width, background.height, background.bytes_per_pixel, background.pixel_data);
 }
 
-void drawBunny(Bunny bunny)
+
+void drawBunny(Bunny* bunny)
 {
-	switch(bunny.frame)
+	int row = bunny->row * 16;
+	int col = bunny->column * 16;
+
+	switch(bunny->frame)
 	{
 	case LEFT2:
-		drawBunnySprite(bunny.row, bunny.column, bunny_left_2);
+		drawSprite(col, row, 48, 80, 3, bunny_left_2.pixel_data);
 		break;
 	case LEFT1:
-		drawBunnySprite(bunny.row, bunny.column, bunny_left_1);
+		drawSprite(col, row, 48, 80, 3, bunny_left_1.pixel_data);
 		break;
 	case CENTER:
-		drawBunnySprite(bunny.row, bunny.column, bunny_stable);
+		drawSprite(col, row, 48, 80, 3, bunny_stable.pixel_data);
 		break;
 	case RIGHT1:
-		drawBunnySprite(bunny.row, bunny.column, bunny_right_1);
+		drawSprite(col, row, 48, 80, 3, bunny_right_1.pixel_data);
 		break;
 	case RIGHT2:
-		drawBunnySprite(bunny.row, bunny.column, bunny_right_2);
+		drawSprite(col, row, 48, 80, 3, bunny_right_2.pixel_data);
 		break;
+	/*
 	case TRANSIT1:
 		drawBunnySprite(bunny.row, bunny.column, bunny_transit_1);
 		break;
@@ -97,6 +94,7 @@ void drawBunny(Bunny bunny)
 	case DOWN1:
 		drawBunnySprite(bunny.row, bunny.column, bunny_down_1);
 		break;
+	*/
 	default:
 		break;
 	}
