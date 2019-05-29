@@ -2,11 +2,8 @@
 
 #include "vga_periph_mem.h"
 #include "xparameters.h"
-#include "bunny-left-2.c"
-#include "bunny-left-1.c"
-#include "bunny-stable.c"
-#include "bunny-right-1.c"
-#include "bunny-right-2.c"
+
+extern const BunnySprite bunny_left_1, bunny_left_2, bunny_right_1, bunny_right_2, bunny_stable;
 
 void init()
 {
@@ -31,7 +28,7 @@ void init()
 
 static void drawSprite(int out_x, int out_y, int spriteWidth, int spriteHeight, int spriteBytesPerPixel, const unsigned char* spriteData)
 {
-	int x, y, ox, oy, oi, ii, R, G, B, RGB;
+	static int x, y, ox, oy, oi, ii, R, G, B, RGB;
 	for (y = 0; y < spriteHeight; y++)
 	{
 		for (x = 0; x < spriteWidth; x++)
@@ -56,16 +53,18 @@ static void drawSprite(int out_x, int out_y, int spriteWidth, int spriteHeight, 
 
 void drawBackgroundSprite(unsigned int row, unsigned int column, const BackgroundSprite background)
 {
-	int offset_y = row*16;
-	int offset_x = column*16;
+	static int offset_y, offset_x;
+	offset_y = row*16;
+	offset_x = column*16;
 	drawSprite(offset_x, offset_y, background.width, background.height, background.bytes_per_pixel, background.pixel_data);
 }
 
 
 void drawBunny(Bunny* bunny)
 {
-	int row = bunny->row * 16;
-	int col = bunny->column * 16;
+	static int row, col;
+	row = bunny->row * 16;
+	col = bunny->column * 16;
 
 	switch(bunny->frame)
 	{

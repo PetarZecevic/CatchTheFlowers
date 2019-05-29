@@ -267,7 +267,7 @@ char getPressedKey()
 	else if ((Xil_In32(XPAR_MY_PERIPHERAL_0_BASEADDR) & UP) == 0)
 		pressedKey = 'u';
 	else if ((Xil_In32(XPAR_MY_PERIPHERAL_0_BASEADDR) & CENTER) == 0)
-		pressedKey = 'R';
+		pressedKey = 'c';
 	else if((Xil_In32(XPAR_MY_PERIPHERAL_0_BASEADDR) & SW0) == 0)
 		pressedKey = '0';
 	else if((Xil_In32(XPAR_MY_PERIPHERAL_0_BASEADDR) & SW1) == 0)
@@ -357,7 +357,7 @@ void updateBoxes(){
 				map1[SIZEROW-1][2] = box[0];
 				mapChanges[SIZEROW-1][2] = true;
 			}
-			else if(pressedKey == 'R')
+			else if(pressedKey == 'c')
 			{
 				if(box[1] == DIRT)
 					box[1] = BUSH;

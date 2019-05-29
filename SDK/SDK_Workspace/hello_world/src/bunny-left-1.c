@@ -1,11 +1,7 @@
 /* GIMP RGB C-Source image dump (bunny-left-1.c) */
+#include "sprite.h"
 
-static const struct {
-  unsigned int 	 width;
-  unsigned int 	 height;
-  unsigned int 	 bytes_per_pixel; /* 2:RGB16, 3:RGB, 4:RGBA */ 
-  unsigned char	 pixel_data[48 * 80 * 3 + 1];
-} bunny_left_1 = {
+const BunnySprite bunny_left_1 = {
   48, 80, 3,
   "\221\215^\377\246\253\205\377\246\253\213\377\251\254\216\377\250\255\217"
   "\377\245\245\213\377\251\241\210\377\231\177l\377\245\236\204\377*\254\025"

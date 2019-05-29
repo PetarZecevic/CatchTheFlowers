@@ -3,14 +3,6 @@
 
 #include <stdbool.h>
 
-
-//typedef struct{
-//	unsigned int 	 width;
-//	unsigned int 	 height;
-//	unsigned int 	 bytes_per_pixel; /* 2:RGB16, 3:RGB, 4:RGBA */
-//	unsigned char	 pixel_data[48 * 80 * 3 + 1];
-//}BunnySprite;
-
 typedef enum {UP, TRANSIT, DOWN} BunnyStates;
 typedef enum {LEFT2 = -2, LEFT1, CENTER, RIGHT1, RIGHT2, TRANSIT1, TRANSIT2, DOWN1} BunnyFrames;
 typedef enum {MOV_LEFT = -1, MOV_RIGHT = 1} BunnyMovingDirection;

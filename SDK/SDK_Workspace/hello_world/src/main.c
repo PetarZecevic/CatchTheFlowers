@@ -3,7 +3,50 @@
 #include <stdlib.h>
 #include "platform.h"
 
-const BackgroundSprite ground, sky;
+extern const BackgroundSprite ground, sky;
+Bunny bunnies[3];
+
+void flipBunnyBasket(Bunny* bunny)
+{
+	if(bunny->state == UP)
+	{
+		bunny->transitDir = TRANSIT_DOWN;
+	}
+	else if(bunny->state == DOWN)
+	{
+		bunny->transitDir = TRANSIT_UP;
+	}
+}
+
+// Get user input and update bunnies transit direction.
+void updateBunnies()
+{
+	static int dummy;
+	static char pressedKey;
+	for(dummy = 0; dummy < 1000; dummy++)
+	{
+		pressedKey = getPressedKey();
+		if(pressedKey != 'n')
+		{
+			if(pressedKey == 'r')
+			{
+				// Right bunny update.
+				flipBunnyBasket(&bunnies[2]);
+			}
+			else if(pressedKey == 'l')
+			{
+				// Center bunny update.
+				flipBunnyBasket(&bunnies[1]);
+			}
+			else if(pressedKey == 'c')
+			{
+				// Left bunny update.
+				flipBunnyBasket(&bunnies[0]);
+			}
+			break;
+		}
+	}
+}
 
 void test()
 {
@@ -20,29 +63,33 @@ void test()
 		}
 	}
 
-	Bunny bunnies[3];
-
 	Bunny_Init(&bunnies[0], 10, 2);
 	Bunny_Init(&bunnies[1], 10, 9);
 	Bunny_Init(&bunnies[2], 10, 15);
 
+	static int bunnyMovingSpeed = 0;
+
+	// Simulate game loop.
 	while(1)
 	{
-		// Delay.
-		for(int i = 0; i < 1500000; i++);
-		for(int j = 0; j < 3; j++)
+		updateBunnies();
+
+		if(bunnyMovingSpeed == 1500000)
 		{
-			drawBunny(&bunnies[j]);
-			Bunny_ChangeFrame(&bunnies[j]);
+			for(int j = 0; j < 3; j++)
+			{
+				drawBunny(&bunnies[j]);
+				Bunny_ChangeFrame(&bunnies[j]);
+			}
+			bunnyMovingSpeed = 0;
 		}
+
+		bunnyMovingSpeed++;
 	}
 }
 
 int main()
 {
-
-	// Ima bug kada se desi da pada kamen na otvorenu kutijicu.
-	// Tada ne azurira broj osvojenih poena.
 	srand(time(NULL));
 	cleanup_platform();
 
@@ -55,5 +102,3 @@ int main()
 	test();
 	return 0;
 }
-
-
