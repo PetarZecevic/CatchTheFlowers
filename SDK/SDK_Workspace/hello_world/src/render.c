@@ -26,7 +26,7 @@ void init()
 			XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x20, 1);
 }
 
-static void drawSprite(int out_x, int out_y, int spriteWidth, int spriteHeight, int spriteBytesPerPixel, const unsigned char* spriteData)
+void drawSprite(int out_x, int out_y, int spriteWidth, int spriteHeight, int spriteBytesPerPixel, const unsigned char* spriteData)
 {
 	static int x, y, ox, oy, oi, ii, R, G, B, RGB;
 	for (y = 0; y < spriteHeight; y++)
