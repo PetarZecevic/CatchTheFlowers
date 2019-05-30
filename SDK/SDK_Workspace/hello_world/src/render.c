@@ -3,7 +3,7 @@
 #include "vga_periph_mem.h"
 #include "xparameters.h"
 
-extern const BunnySprite bunny_left_1, bunny_left_2, bunny_right_1, bunny_right_2, bunny_stable;
+const BunnySprite bunny_left_1, bunny_left_2, bunny_right_1, bunny_right_2, bunny_stable;
 
 void init()
 {
@@ -69,19 +69,19 @@ void drawBunny(Bunny* bunny)
 	switch(bunny->frame)
 	{
 	case LEFT2:
-		drawSprite(col, row, 48, 80, 3, bunny_left_2.pixel_data);
+		drawSprite(col, row, 48, 80, bunny_left_2.bytes_per_pixel, bunny_left_2.pixel_data);
 		break;
 	case LEFT1:
-		drawSprite(col, row, 48, 80, 3, bunny_left_1.pixel_data);
+		drawSprite(col, row, 48, 80, bunny_left_1.bytes_per_pixel, bunny_left_1.pixel_data);
 		break;
 	case CENTER:
-		drawSprite(col, row, 48, 80, 3, bunny_stable.pixel_data);
+		drawSprite(col, row, 48, 80, bunny_stable.bytes_per_pixel, bunny_stable.pixel_data);
 		break;
 	case RIGHT1:
-		drawSprite(col, row, 48, 80, 3, bunny_right_1.pixel_data);
+		drawSprite(col, row, 48, 80, bunny_right_1.bytes_per_pixel, bunny_right_1.pixel_data);
 		break;
 	case RIGHT2:
-		drawSprite(col, row, 48, 80, 3, bunny_right_2.pixel_data);
+		drawSprite(col, row, 48, 80, bunny_right_2.bytes_per_pixel, bunny_right_2.pixel_data);
 		break;
 	/*
 	case TRANSIT1:

@@ -21,31 +21,29 @@ void flipBunnyBasket(Bunny* bunny)
 // Get user input and update bunnies transit direction.
 void updateBunnies()
 {
-	static int dummy;
+	//static int dummy;
 	static char pressedKey;
-	for(dummy = 0; dummy < 1000; dummy++)
+
+	pressedKey = getPressedKey();
+	if(pressedKey != 'n')
 	{
-		pressedKey = getPressedKey();
-		if(pressedKey != 'n')
+		if(pressedKey == 'r')
 		{
-			if(pressedKey == 'r')
-			{
-				// Right bunny update.
-				flipBunnyBasket(&bunnies[2]);
-			}
-			else if(pressedKey == 'l')
-			{
-				// Center bunny update.
-				flipBunnyBasket(&bunnies[1]);
-			}
-			else if(pressedKey == 'c')
-			{
-				// Left bunny update.
-				flipBunnyBasket(&bunnies[0]);
-			}
-			break;
+			// Right bunny update.
+			flipBunnyBasket(&bunnies[2]);
+		}
+		else if(pressedKey == 'l')
+		{
+			// Center bunny update.
+			flipBunnyBasket(&bunnies[0]);
+		}
+		else if(pressedKey == 'c')
+		{
+			// Left bunny update.
+			flipBunnyBasket(&bunnies[1]);
 		}
 	}
+
 }
 
 void test()
@@ -68,13 +66,14 @@ void test()
 	Bunny_Init(&bunnies[2], 10, 15);
 
 	static int bunnyMovingSpeed = 0;
+	static const int ANIMATION_SPEED = 100000;
 
 	// Simulate game loop.
 	while(1)
 	{
 		updateBunnies();
 
-		if(bunnyMovingSpeed == 1500000)
+		if(bunnyMovingSpeed == ANIMATION_SPEED)
 		{
 			for(int j = 0; j < 3; j++)
 			{
