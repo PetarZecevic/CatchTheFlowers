@@ -162,6 +162,25 @@ void updateObjects()
 	return;
 }
 
+// Iterate through object and check for collision.
+// If collision happens, check bunny state, to determine if bunny is hurt.
+void checkCollisions()
+{
+	for(int i = 0; i < 3; i++)
+	{
+		for(int j = 0; j < 10; j++)
+		{
+			if(mapObject[i][j].row >= 160)
+			{
+				// Check if bunny is hurt.
+				if(bunnies[i].state != DOWN && !mapObject[i][j].isFlower)
+				{
+					bunnies[i].state = HURT;
+				}
+			}
+		}
+	}
+}
 
 void test()
 {
@@ -222,6 +241,7 @@ void test()
 		}
 
 		if(itemMovingSpeed == ITEM_SPEED){
+			checkCollisions();
 			updateObjects();
 			itemMovingSpeed = 0;
 		}
