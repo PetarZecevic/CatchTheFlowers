@@ -133,6 +133,17 @@ void insertObjects()
 }
 
 
+void checkAndDraw(){
+	int i,j;
+	for(i=0;i<3;i++){
+		for(j=0;j<10;j++){
+				if(mapObject[i][j].valid==true){
+					drawObject(mapObject[i][j].row, mapObject[i][j].col,mapObject[i][j].position,mapObject[i][j].roseOrYellow,mapObject[i][j].isFlower);
+				}
+		}
+	}
+}
+
 
 void updateObjects()
 {
@@ -142,10 +153,7 @@ void updateObjects()
 	for(i=0;i<3;i++){
 		for(j=0;j<10;j++){
 			mapObject[i][j].row+=ITEM_STEP;
-			if(mapObject[i][j].row<160){
-				drawObject(mapObject[i][j].row, mapObject[i][j].col,mapObject[i][j].position,mapObject[i][j].roseOrYellow,mapObject[i][j].isFlower);
-			}
-			else{
+			if(mapObject[i][j].row>=160){
 				mapObject[i][j].valid=false;
 			}
 		}
@@ -202,6 +210,7 @@ void test()
 				Bunny_ChangeFrame(&bunnies[j]);
 			}
 			bunnyMovingSpeed = 0;
+			checkAndDraw();
 		}
 
 		if(itemInsertSpeed == INSERT_SPEED)
