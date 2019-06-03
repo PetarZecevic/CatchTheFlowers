@@ -20,7 +20,7 @@
 
 #include "xio.h"
 #include "xil_exception.h"
-#include <stdlib.h>     /* srand, rand */
+#include "stdlib.h"     /* srand, rand */
 #include "vga_periph_mem.h"
 #include "xparameters.h"
 #include "gameplay.h"

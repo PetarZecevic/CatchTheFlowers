@@ -1,9 +1,8 @@
 #include "gameplay.h"
-#include <time.h>
-#include <stdlib.h>
 #include "platform.h"
+#include "stdlib.h"
 
-#define ITEM_STEP 2
+#define ITEM_STEP 3
 
 extern const BackgroundSprite ground, sky;
 extern const BackgroundSprite rose_flower_1, rose_flower_2, yellow_flower_1, yellow_flower_2, trash;
@@ -19,24 +18,30 @@ typedef struct{
 	bool valid; //true-draw it, false-do not draw it
 }Object;
 
-
-
 Object mapObject[3][10];
 
-void setColumn(){
+const int ANIMATION_SPEED = 80000, ITEM_SPEED = 50000, ROTATION_SPEED = 50000, INSERT_SPEED = 600000, TRAIL_LENGTH = 4;
+
+void setColumn()
+{
 	int i,j;
-	for(i=0;i<3;i++){
-		for(j=0;j<10;j++){
+	for(i=0;i<3;i++)
+	{
+		for(j=0;j<10;j++)
+		{
 			mapObject[i][j].row=0;
-			mapObject[i][j].valid=true;
+			mapObject[i][j].valid=false;
 			mapObject[i][j].isFlower=false;
-			if(i==0){
+			if(i==0)
+			{
 				mapObject[i][j].col=3;
 			}
-			else if(i==1){
+			else if(i==1)
+			{
 				mapObject[i][j].col=10;
 			}
-			else{
+			else
+			{
 				mapObject[i][j].col=16;
 			}
 		}
@@ -91,9 +96,8 @@ void updateBunnies()
 
 /** @param dir is used to determine if flower needs to rotate.
 */
-void drawObject(int row, int column, bool dir, bool roseOrYellow,bool isFlower)
+void drawOneObject(int row, int column, bool dir, bool roseOrYellow,bool isFlower)
 {
-	row *= 16;
 	column *= 16;
 
 	if(isFlower){
@@ -126,27 +130,53 @@ void drawObject(int row, int column, bool dir, bool roseOrYellow,bool isFlower)
 	}
 }
 
-/*int random(int min_number,int max_number){
-	int value;
-	value=rand() % (max_number + 1 - min_number) + min_number;
-	return value;
-}*/
-
 void insertObjects()
 {
 	//TODO: Insert flower or trash in map, determine in which way to insert it.
+	int column = rand() % 3;
+	int flowerOrRock = rand() % 10;
 
-	return;
+	for(int i = 0; i < 10; i++)
+	{
+		if(!mapObject[column][i].valid)
+		{
+			mapObject[column][i].row = 0;
+			if(flowerOrRock > 7)
+			{
+				mapObject[column][i].isFlower = false;
+			}
+			else
+			{
+				mapObject[column][i].isFlower = true;
+				int roseOrYellow = rand() % 2;
+				if(roseOrYellow == 0)
+				{
+					mapObject[column][i].roseOrYellow = true;
+				}
+				else
+				{
+					mapObject[column][i].roseOrYellow = false;
+				}
+			}
+			mapObject[column][i].position = true;
+			mapObject[column][i].valid = true;
+			break;
+		}
+	}
 }
 
 
-void checkAndDraw(){
+void drawObjects()
+{
 	int i,j;
-	for(i=0;i<3;i++){
-		for(j=0;j<10;j++){
-				if(mapObject[i][j].valid==true){
-					drawObject(mapObject[i][j].row, mapObject[i][j].col,mapObject[i][j].position,mapObject[i][j].roseOrYellow,mapObject[i][j].isFlower);
-				}
+	for(i=0;i<3;i++)
+	{
+		for(j=0;j<10;j++)
+		{
+			if(mapObject[i][j].valid==true)
+			{
+				drawOneObject(mapObject[i][j].row, mapObject[i][j].col,mapObject[i][j].position,mapObject[i][j].roseOrYellow,mapObject[i][j].isFlower);
+			}
 		}
 	}
 }
@@ -157,17 +187,54 @@ void updateObjects()
 	//TODO: Update object position.
 	// Move them by FLOWER_STEP rows using drawFlower function.
 	int i,j;
-	for(i=0;i<3;i++){
-		for(j=0;j<10;j++){
-			mapObject[i][j].row+=ITEM_STEP;
-			if(mapObject[i][j].row>=160){
-				mapObject[i][j].valid=false;
+	for(i=0;i<3;i++)
+	{
+		for(j=0;j<10;j++)
+		{
+			if(mapObject[i][j].valid)
+			{
+				mapObject[i][j].row += ITEM_STEP;
 			}
 		}
 
 	}
+}
 
-	return;
+void updateObjectRotations()
+{
+	int i, j;
+	for(i = 0; i < 3; i++)
+	{
+		for(j = 0; j < 10; j++)
+		{
+			if(mapObject[i][j].valid)
+			{
+				if(mapObject[i][j].isFlower)
+				{
+					mapObject[i][j].position = !mapObject[i][j].position;
+				}
+			}
+		}
+	}
+}
+
+void clearObjectPaths()
+{
+	int row;
+	for(int i = 0; i < 3; i++)
+	{
+		for(int j = 0; j < 10; j++)
+		{
+			if(mapObject[i][j].valid)
+			{
+				row = mapObject[i][j].row;
+				if(row >= TRAIL_LENGTH*ITEM_STEP)
+				{
+					drawSprite(mapObject[i][j].col*16, row - TRAIL_LENGTH*ITEM_STEP, 16, TRAIL_LENGTH*ITEM_STEP, 3, sky.pixel_data);
+				}
+			}
+		}
+	}
 }
 
 // Iterate through object and check for collision.
@@ -178,12 +245,17 @@ void checkCollisions()
 	{
 		for(int j = 0; j < 10; j++)
 		{
-			if(mapObject[i][j].row >= 160)
+			if(mapObject[i][j].valid)
 			{
-				// Check if bunny is hurt.
-				if(bunnies[i].state != DOWN && !mapObject[i][j].isFlower)
+				if(mapObject[i][j].row >= 144)
 				{
-					bunnies[i].state = HURT;
+					mapObject[i][j].valid = false;
+					// Check if bunny is hurt.
+					if(bunnies[i].state != DOWN && !mapObject[i][j].isFlower)
+					{
+						bunnies[i].state = HURT;
+					}
+					drawBackgroundSprite(9, mapObject[i][j].col, sky);
 				}
 			}
 		}
@@ -201,14 +273,6 @@ void test()
 	static int itemMovingSpeed = 0;
 	static int itemRotationSpeed = 0;
 	static int itemInsertSpeed = 0;
-
-	static const int ANIMATION_SPEED = 80000;
-	static const int ITEM_SPEED = 20000;
-	static const int ROTATION_SPEED = 50000;
-	static const int INSERT_SPEED = 80000;
-
-
-	static bool dir1 = true, dir2 = true;
 
 	// Draw background.
 	for(int i = 0; i < 15; i++){
@@ -240,7 +304,6 @@ void test()
 				Bunny_ChangeFrame(&bunnies[j]);
 			}
 			bunnyMovingSpeed = 0;
-			checkAndDraw();
 		}
 
 		if(itemInsertSpeed == INSERT_SPEED)
@@ -250,6 +313,9 @@ void test()
 		}
 
 		if(itemMovingSpeed == ITEM_SPEED){
+
+			clearObjectPaths();
+			drawObjects();
 			checkCollisions();
 			updateObjects();
 			itemMovingSpeed = 0;
@@ -257,8 +323,7 @@ void test()
 
 		if(itemRotationSpeed == ROTATION_SPEED)
 		{
-			dir1 = !dir1;
-			dir2 = !dir2;
+			updateObjectRotations();
 			itemRotationSpeed = 0;
 		}
 
@@ -271,7 +336,6 @@ void test()
 
 int main()
 {
-	srand(time(NULL));
 	cleanup_platform();
 
 	init_platform();
