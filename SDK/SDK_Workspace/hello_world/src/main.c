@@ -16,23 +16,30 @@ typedef struct{
 	bool isFlower;//true-flower,false-garbage
 	bool roseOrYellow; //true-pink,false-yellow
 	bool position;
+	bool valid; //true-draw it, false-do not draw it
 }Object;
 
-Object leftCol[10];
-Object centreCol[10];
-Object rightCol[10];
+
+
+Object mapObject[3][10];
 
 void setColumn(){
-	int i;
-	for(i=0;i<10;i++){
-		leftCol[i].col=3;
-		centreCol[i].col=10;
-		rightCol[i].col=16;
-	}
-	for(i=0;i<10;i++){
-		leftCol[i].row=0;
-		centreCol[i].row=0;
-		rightCol[i].row=0;
+	int i,j;
+	for(i=0;i<3;i++){
+		for(j=0;j<10;j++){
+			mapObject[i][j].row=0;
+			mapObject[i][j].valid=true;
+			mapObject[i][j].isFlower=false;
+			if(i==0){
+				mapObject[i][j].col=3;
+			}
+			else if(i==1){
+				mapObject[i][j].col=10;
+			}
+			else{
+				mapObject[i][j].col=16;
+			}
+		}
 	}
 }
 
@@ -138,14 +145,17 @@ void updateObjects()
 {
 	//TODO: Update object position.
 	// Move them by FLOWER_STEP rows using drawFlower function.
-	int i;
-	for(i=0;i<10;i++){
-		leftCol[i].row+=ITEM_STEP;
-		centreCol[i].row+=ITEM_STEP;
-		rightCol[i].row+=ITEM_STEP;
-		drawObject(leftCol[i].row, leftCol[i].col, leftCol[i].position, leftCol[i].roseOrYellow,leftCol[i].isFlower);
-		drawObject(centreCol[i].row, centreCol[i].col, centreCol[i].position, centreCol[i].roseOrYellow,centreCol[i].isFlower);
-		drawObject(rightCol[i].row, rightCol[i].col, rightCol[i].position, rightCol[i].roseOrYellow,rightCol[i].isFlower);
+	int i,j;
+	for(i=0;i<3;i++){
+		for(j=0;j<10;j++){
+			mapObject[i][j].row+=ITEM_STEP;
+			if(mapObject[i][j].row<160){
+				drawObject(mapObject[i][j].row, mapObject[i][j].col,mapObject[i][j].position,mapObject[i][j].roseOrYellow,mapObject[i][j].isFlower);
+			}
+			else{
+				mapObject[i][j].valid=false;
+			}
+		}
 
 	}
 
@@ -171,16 +181,6 @@ void test()
 	static const int INSERT_SPEED = 80000;
 
 
-	//static int row1 = 0, row2 = 0;
-	/*
-	 struct Object{
-	 	 int row;
-	 	 int column;
-	 	 bool isFlower;
-	 	 bool roseOrYellow;
-	 	 bool position;
-	 };
-	 */
 	static bool dir1 = true, dir2 = true;
 
 	// Draw background.
