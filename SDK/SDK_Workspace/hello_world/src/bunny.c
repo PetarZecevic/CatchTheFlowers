@@ -56,7 +56,18 @@ void Bunny_ChangeFrame(Bunny* bunny)
 			}
 		}
 		break;
-
+	case HURT:
+		bunny->transitDir = NONE;
+		if(bunny->frame == HURT1)
+			bunny->frame++;
+		else if(bunny->frame == HURT2)
+		{
+			bunny->state = UP;
+			bunny->frame = CENTER;
+		}
+		else
+			bunny->frame = HURT1;
+		break;
 	case DOWN:
 		if(bunny->transitDir == TRANSIT_UP)
 		{

@@ -73,6 +73,11 @@ void updateBunnies()
 			// Left bunny update.
 			flipBunnyBasket(&bunnies[1]);
 		}
+		// Added test case for HURT state.
+		else if(pressedKey == 'u')
+		{
+			bunnies[0].state = HURT;
+		}
 	}
 
 }
@@ -81,6 +86,8 @@ void updateBunnies()
 */
 void drawObject(int row, int column, bool dir, bool roseOrYellow,bool isFlower)
 {
+	row *= 16;
+	column *= 16;
 
 	if(isFlower){
 		if(dir)
@@ -145,6 +152,7 @@ void updateObjects()
 	return;
 }
 
+
 void test()
 {
 
@@ -188,6 +196,9 @@ void test()
 			}
 		}
 	}
+
+
+	setColumn();
 
 	// Simulate game loop.
 	while(1)
