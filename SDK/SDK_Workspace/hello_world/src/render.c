@@ -3,7 +3,8 @@
 #include "vga_periph_mem.h"
 #include "xparameters.h"
 
-const BunnySprite bunny_left_1, bunny_left_2, bunny_right_1, bunny_right_2, bunny_stable, bunny_transit_1, bunny_transit_2, bunny_down_1;
+const BunnySprite bunny_left_1, bunny_left_2, bunny_right_1, bunny_right_2,
+	bunny_stable, bunny_transit_1, bunny_transit_2, bunny_down_1, bunny_hurt_1;
 
 void init()
 {
@@ -91,6 +92,12 @@ void drawBunny(Bunny* bunny)
 		break;
 	case DOWN1:
 		drawSprite(col, row, 48, 80, bunny_down_1.bytes_per_pixel, bunny_down_1.pixel_data);
+		break;
+	case HURT1:
+		drawSprite(col, row, 48, 80, bunny_hurt_1.bytes_per_pixel, bunny_hurt_1.pixel_data);
+		break;
+	case HURT2:
+		drawSprite(col, row, 48, 80, bunny_hurt_1.bytes_per_pixel, bunny_hurt_1.pixel_data);
 		break;
 	default:
 		break;

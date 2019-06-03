@@ -3,8 +3,8 @@
 
 #include <stdbool.h>
 
-typedef enum {UP, TRANSIT, DOWN} BunnyStates;
-typedef enum {LEFT2 = -2, LEFT1, CENTER, RIGHT1, RIGHT2, TRANSIT1, TRANSIT2, DOWN1} BunnyFrames;
+typedef enum {UP, TRANSIT, DOWN, HURT} BunnyStates;
+typedef enum {LEFT2 = -2, LEFT1, CENTER, RIGHT1, RIGHT2, TRANSIT1, TRANSIT2, DOWN1, HURT1, HURT2} BunnyFrames;
 typedef enum {MOV_LEFT = -1, MOV_RIGHT = 1} BunnyMovingDirection;
 typedef enum {TRANSIT_UP, TRANSIT_DOWN, NONE} BunnyTransitDirection;
 
