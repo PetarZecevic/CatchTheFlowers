@@ -10,6 +10,32 @@ extern const BackgroundSprite rose_flower_1, rose_flower_2, yellow_flower_1, yel
 
 Bunny bunnies[3];
 
+typedef struct{
+	int row;
+	int col;
+	bool isFlower;//true-flower,false-garbage
+	bool roseOrYellow; //true-pink,false-yellow
+	bool position;
+}Object;
+
+Object leftCol[10];
+Object centreCol[10];
+Object rightCol[10];
+
+void setColumn(){
+	int i;
+	for(i=0;i<10;i++){
+		leftCol[i].col=3;
+		centreCol[i].col=10;
+		rightCol[i].col=16;
+	}
+	for(i=0;i<10;i++){
+		leftCol[i].row=0;
+		centreCol[i].row=0;
+		rightCol[i].row=0;
+	}
+}
+
 
 void flipBunnyBasket(Bunny* bunny)
 {
@@ -53,42 +79,69 @@ void updateBunnies()
 
 /** @param dir is used to determine if flower needs to rotate.
 */
-void drawObject(int row, int column, bool dir, bool roseOrYellow)
+void drawObject(int row, int column, bool dir, bool roseOrYellow,bool isFlower)
 {
-	if(dir)
-	{
-		if(roseOrYellow)
+
+	if(isFlower){
+		if(dir)
 		{
-			drawSprite(column, row, 16, 16, 3, rose_flower_1.pixel_data);
+			if(roseOrYellow)
+			{
+				drawSprite(column, row, 16, 16, 3, rose_flower_1.pixel_data);
+			}
+			else
+			{
+				drawSprite(column, row, 16, 16, 3, yellow_flower_1.pixel_data);
+			}
 		}
 		else
 		{
-			drawSprite(column, row, 16, 16, 3, yellow_flower_1.pixel_data);
+			if(roseOrYellow)
+			{
+				drawSprite(column, row, 16, 16, 3, rose_flower_2.pixel_data);
+			}
+			else
+			{
+				drawSprite(column, row, 16, 16, 3, yellow_flower_2.pixel_data);
+			}
 		}
 	}
 	else
 	{
-		if(roseOrYellow)
-		{
-			drawSprite(column, row, 16, 16, 3, rose_flower_2.pixel_data);
-		}
-		else
-		{
-			drawSprite(column, row, 16, 16, 3, yellow_flower_2.pixel_data);
-		}
+		drawSprite(column, row, 16, 16, 3, trash.pixel_data);
 	}
 }
+
+/*int random(int min_number,int max_number){
+	int value;
+	value=rand() % (max_number + 1 - min_number) + min_number;
+	return value;
+}*/
 
 void insertObjects()
 {
 	//TODO: Insert flower or trash in map, determine in which way to insert it.
+
 	return;
 }
+
+
 
 void updateObjects()
 {
 	//TODO: Update object position.
 	// Move them by FLOWER_STEP rows using drawFlower function.
+	int i;
+	for(i=0;i<10;i++){
+		leftCol[i].row+=ITEM_STEP;
+		centreCol[i].row+=ITEM_STEP;
+		rightCol[i].row+=ITEM_STEP;
+		drawObject(leftCol[i].row, leftCol[i].col, leftCol[i].position, leftCol[i].roseOrYellow,leftCol[i].isFlower);
+		drawObject(centreCol[i].row, centreCol[i].col, centreCol[i].position, centreCol[i].roseOrYellow,centreCol[i].isFlower);
+		drawObject(rightCol[i].row, rightCol[i].col, rightCol[i].position, rightCol[i].roseOrYellow,rightCol[i].isFlower);
+
+	}
+
 	return;
 }
 
@@ -108,6 +161,7 @@ void test()
 	static const int ITEM_SPEED = 20000;
 	static const int ROTATION_SPEED = 50000;
 	static const int INSERT_SPEED = 80000;
+
 
 	//static int row1 = 0, row2 = 0;
 	/*
