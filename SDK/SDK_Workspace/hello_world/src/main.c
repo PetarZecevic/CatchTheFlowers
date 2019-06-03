@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "platform.h"
 
-#define FLOWER_STEP 2
+#define ITEM_STEP 2
 
 extern const BackgroundSprite ground, sky;
 extern const BackgroundSprite rose_flower_1, rose_flower_2, yellow_flower_1, yellow_flower_2, trash;
@@ -51,7 +51,9 @@ void updateBunnies()
 
 }
 
-void drawFlower(int row, int column, bool dir, bool roseOrYellow)
+/** @param dir is used to determine if flower needs to rotate.
+*/
+void drawObject(int row, int column, bool dir, bool roseOrYellow)
 {
 	if(dir)
 	{
@@ -77,6 +79,19 @@ void drawFlower(int row, int column, bool dir, bool roseOrYellow)
 	}
 }
 
+void insertObjects()
+{
+	//TODO: Insert flower or trash in map, determine in which way to insert it.
+	return;
+}
+
+void updateObjects()
+{
+	//TODO: Update object position.
+	// Move them by FLOWER_STEP rows using drawFlower function.
+	return;
+}
+
 void test()
 {
 
@@ -85,14 +100,25 @@ void test()
 	Bunny_Init(&bunnies[2], 10, 15);
 
 	static int bunnyMovingSpeed = 0;
-	static int flowerMovingSpeed = 0;
-	static int flowerRotationSpeed = 0;
+	static int itemMovingSpeed = 0;
+	static int itemRotationSpeed = 0;
+	static int itemInsertSpeed = 0;
 
-	static const int ANIMATION_SPEED = 100000;
-	static const int FLOWER_SPEED = 20000;
+	static const int ANIMATION_SPEED = 80000;
+	static const int ITEM_SPEED = 20000;
 	static const int ROTATION_SPEED = 50000;
+	static const int INSERT_SPEED = 80000;
 
-	static int row1 = 0, row2 = 0;
+	//static int row1 = 0, row2 = 0;
+	/*
+	 struct Object{
+	 	 int row;
+	 	 int column;
+	 	 bool isFlower;
+	 	 bool roseOrYellow;
+	 	 bool position;
+	 };
+	 */
 	static bool dir1 = true, dir2 = true;
 
 	// Draw background.
@@ -124,34 +150,27 @@ void test()
 			bunnyMovingSpeed = 0;
 		}
 
-		if(flowerMovingSpeed == FLOWER_SPEED){
-			if(row1 >= 144)
-			{
-				row1 = 0;
-			}
-
-			if(row2 >= 144)
-			{
-				row2 = 0;
-			}
-
-			drawFlower(row1, 3*16, dir1, true);
-			drawFlower(row2, 10*16, dir2, false);
-
-			row1 += FLOWER_STEP;
-			row2 += FLOWER_STEP;
-			flowerMovingSpeed = 0;
+		if(itemInsertSpeed == INSERT_SPEED)
+		{
+			insertObjects();
+			itemInsertSpeed = 0;
 		}
 
-		if(flowerRotationSpeed == ROTATION_SPEED)
+		if(itemMovingSpeed == ITEM_SPEED){
+			updateObjects();
+			itemMovingSpeed = 0;
+		}
+
+		if(itemRotationSpeed == ROTATION_SPEED)
 		{
 			dir1 = !dir1;
 			dir2 = !dir2;
-			flowerRotationSpeed = 0;
+			itemRotationSpeed = 0;
 		}
 
-		flowerMovingSpeed++;
-		flowerRotationSpeed++;
+		itemMovingSpeed++;
+		itemRotationSpeed++;
+		itemInsertSpeed++;
 		bunnyMovingSpeed++;
 	}
 }
