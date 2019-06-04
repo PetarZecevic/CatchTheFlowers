@@ -27,9 +27,11 @@ void init()
 			XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x20, 1);
 }
 
+// Drawing RGB 565 format.
 void drawSprite(int out_x, int out_y, int spriteWidth, int spriteHeight, int spriteBytesPerPixel, const unsigned char* spriteData)
 {
 	static int x, y, ox, oy, oi, ii, R, G, B, RGB;
+	unsigned short tmp;
 	for (y = 0; y < spriteHeight; y++)
 	{
 		for (x = 0; x < spriteWidth; x++)
@@ -38,11 +40,11 @@ void drawSprite(int out_x, int out_y, int spriteWidth, int spriteHeight, int spr
 			oy = out_y + y;
 			oi = oy * 320 + ox;
 			ii = y * spriteWidth + x;
-			R = spriteData[ii * spriteBytesPerPixel] >> 5;
-			G = spriteData[ii * spriteBytesPerPixel + 1] >> 5;
-			B = spriteData[ii * spriteBytesPerPixel + 2] >> 5;
-			R <<= 6;
-			G <<= 3;
+			tmp = (((unsigned short)spriteData[ii*spriteBytesPerPixel + 1] << 8) | (unsigned short)spriteData[ii*spriteBytesPerPixel + 0]);
+			R = ((tmp << 3) | 0xe000) >> 7;
+			G = ((tmp << 8) | 0xe000) >> 10;
+			B = ((tmp << 9) | 0xe000) >> 13;
+			
 			RGB = R | G | B;
 
 			VGA_PERIPH_MEM_mWriteMemory(
