@@ -4,7 +4,7 @@
 #include "xparameters.h"
 
 const BunnySprite bunny_left_1, bunny_left_2, bunny_right_1, bunny_right_2,
-	bunny_stable, bunny_transit_1, bunny_transit_2, bunny_down_1, bunny_hurt_1;
+	bunny_stable, bunny_transit_1, /*bunny_transit_2,*/ bunny_down_1;
 
 void init()
 {
@@ -31,7 +31,6 @@ void init()
 void drawSprite(int out_x, int out_y, int spriteWidth, int spriteHeight, int spriteBytesPerPixel, const unsigned char* spriteData)
 {
 	static int x, y, ox, oy, oi, ii, R, G, B, RGB;
-	unsigned short tmp;
 	for (y = 0; y < spriteHeight; y++)
 	{
 		for (x = 0; x < spriteWidth; x++)
@@ -40,11 +39,14 @@ void drawSprite(int out_x, int out_y, int spriteWidth, int spriteHeight, int spr
 			oy = out_y + y;
 			oi = oy * 320 + ox;
 			ii = y * spriteWidth + x;
-			tmp = (((unsigned short)spriteData[ii*spriteBytesPerPixel + 1] << 8) | (unsigned short)spriteData[ii*spriteBytesPerPixel + 0]);
-			R = ((tmp << 3) | 0xe000) >> 7;
-			G = ((tmp << 8) | 0xe000) >> 10;
-			B = ((tmp << 9) | 0xe000) >> 13;
 			
+			R = spriteData[ii*spriteBytesPerPixel] >> 5;
+			G = spriteData[ii*spriteBytesPerPixel + 1] >> 5;
+			B = spriteData[ii*spriteBytesPerPixel + 2] >> 5;
+
+			R <<= 6;
+			G <<= 3;
+
 			RGB = R | G | B;
 
 			VGA_PERIPH_MEM_mWriteMemory(
@@ -89,18 +91,22 @@ void drawBunny(Bunny* bunny)
 	case TRANSIT1:
 		drawSprite(col, row, 48, 80, bunny_transit_1.bytes_per_pixel, bunny_transit_1.pixel_data);
 		break;
+	/*
 	case TRANSIT2:
 		drawSprite(col, row, 48, 80, bunny_transit_2.bytes_per_pixel, bunny_transit_2.pixel_data);
 		break;
+	*/
 	case DOWN1:
 		drawSprite(col, row, 48, 80, bunny_down_1.bytes_per_pixel, bunny_down_1.pixel_data);
 		break;
+	/*
 	case HURT1:
-		drawSprite(col, row, 48, 80, bunny_hurt_1.bytes_per_pixel, bunny_hurt_1.pixel_data);
+		drawSprite(col, row, 48, 80, bunny_hurt_2.bytes_per_pixel, bunny_hurt_2.pixel_data);
 		break;
 	case HURT2:
-		drawSprite(col, row, 48, 80, bunny_hurt_1.bytes_per_pixel, bunny_hurt_1.pixel_data);
+		drawSprite(col, row, 48, 80, bunny_hurt_2.bytes_per_pixel, bunny_hurt_2.pixel_data);
 		break;
+	*/
 	default:
 		break;
 	}

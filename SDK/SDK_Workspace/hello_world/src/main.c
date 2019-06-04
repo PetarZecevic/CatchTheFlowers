@@ -288,7 +288,6 @@ void test()
 		}
 	}
 
-	/*
 	setColumn();
 
 	// Simulate game loop.
@@ -332,7 +331,6 @@ void test()
 		itemInsertSpeed++;
 		bunnyMovingSpeed++;
 	}
-	*/
 }
 
 int main()

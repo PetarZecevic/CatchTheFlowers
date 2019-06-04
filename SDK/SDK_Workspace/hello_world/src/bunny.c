@@ -35,25 +35,18 @@ void Bunny_ChangeFrame(Bunny* bunny)
 	case TRANSIT:
 		if(bunny->transitDir == TRANSIT_DOWN)
 		{
-			bunny->frame++;
-			if(bunny->frame == DOWN1)
-			{
-				// Finished transition.
-				bunny->state = DOWN;
-				bunny->transitDir = NONE;
-			}
+			// Finished transition.
+			bunny->state = DOWN;
+			bunny->frame = DOWN1;
+			bunny->transitDir = NONE;
 		}
 		else if(bunny->transitDir == TRANSIT_UP)
 		{
-			bunny->frame--;
-			if(bunny->frame == RIGHT2)
-			{
-				// Finished transition, return to central position and start moving to left.
-				bunny->state = UP;
-				bunny->frame = CENTER;
-				bunny->movingDir = MOV_LEFT;
-				bunny->transitDir = NONE;
-			}
+			// Finished transition, return to central position and start moving to left.
+			bunny->state = UP;
+			bunny->frame = CENTER;
+			bunny->movingDir = MOV_LEFT;
+			bunny->transitDir = NONE;
 		}
 		break;
 	case HURT:
@@ -73,7 +66,7 @@ void Bunny_ChangeFrame(Bunny* bunny)
 		{
 			// Start transition animation.
 			bunny->state = TRANSIT;
-			bunny->frame = TRANSIT2;
+			bunny->frame = TRANSIT1;
 
 		}
 		break;
