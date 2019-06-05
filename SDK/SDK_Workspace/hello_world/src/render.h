@@ -21,5 +21,6 @@ void drawObjectMap(Object* map);
 void updateObjectMap(Object* map);
 //>>>>>>> Stashed changes
 void drawEndGame();
+void startValues();
 
 #endif /* RENDER_H_ */

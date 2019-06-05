@@ -12,10 +12,10 @@
 extern const BunnySprite bunny_left_1, bunny_left_2, bunny_right_1, bunny_right_2,
 	bunny_stable, bunny_transit_1, bunny_down_1;
 
-extern const BackgroundSprite rose_flower_1, rose_flower_2, yellow_flower_1, yellow_flower_2, trash;
+extern const BackgroundSprite rose_flower_1, rose_flower_2, yellow_flower_1, yellow_flower_2, trash,sky;
 //>>>>>>> Stashed changes
 
-const BackgroundSprite zero,one,two,three,four,five,six,seven,eight,nine,sky;
+extern const ItemSprite zero,one,two,three,four,five,six,seven,eight,nine,life;
 
 //GameStats gameStats;
 
@@ -124,6 +124,8 @@ void drawBunny(Bunny* bunny)
 void printNum(int row,int column,int num)
 {
 
+	row=row*16;
+	column=column*16;
 	if(num==0)
 		drawSprite(column, row, 16, 16, zero.bytes_per_pixel,zero.pixel_data);
 	else if(num==1)
@@ -150,25 +152,25 @@ void printCoins(GameStats gameStats)
 	int l,r;
 	l = gameStats.coinsCollected / 10;
 	r = gameStats.coinsCollected % 10;
-	printNum(0,8,r);
+	printNum(1,19,r);
 
 	if(l!=0)
-		printNum(0,0,l);
-	else
+		printNum(1,18,l);
+	/*else
 		drawSprite(16,0,0,0,8,8);
+	*/
 }
 
 //printing the number of lives left
 void printLives(GameStats gameStats){
 	int l,r;
-	l = gameStats.healthPoints / 10;
-	r = gameStats.healthPoints % 10;
-	printNum(8,8,r);
+	r = gameStats.healthPoints;
+	printNum(3,18,r);
 
-	if(l!=0)
+	/*if(l!=0)
 		printNum(8,0,l);
 	else
-		drawSprite(16,0,0,8,8,8);
+		drawSprite(16,0,0,8,8,8);*/
 //=======
 }
 
@@ -262,4 +264,13 @@ void drawEndGame()
 			}
 		}
 	}
+}
+
+void startValues(){
+	drawSprite(18*16, 0, 16, 16, rose_flower_1.bytes_per_pixel, rose_flower_1.pixel_data);
+	drawSprite(19*16, 0, 16, 16, yellow_flower_1.bytes_per_pixel, yellow_flower_1.pixel_data);
+	printNum(1,19,0);
+
+	drawSprite(19*16, 3*16, 16, 16, life.bytes_per_pixel, life.pixel_data);
+	printNum(3,18,9);
 }

@@ -40,12 +40,14 @@ typedef struct{
 }GameStats;
 
 
-extern const BackgroundSprite ground, sky;
+extern const BackgroundSprite ground, sky,rose_flower_1, yellow_flower_1;
+extern const ItemSprite life;
+
 
 GameStats gameStats;
 Object matrix[PATHS][MAX_OBJECTS];
 
-const int bunnyColumns[3] = {2, 9, 15};
+const int bunnyColumns[3] = {2, 8, 14};
 
 const int ANIMATION_SPEED = 80000, ITEM_SPEED = 50000, ROTATION_SPEED = 50000, INSERT_SPEED = 600000, TRAIL_LENGTH = 4;
 
@@ -295,6 +297,8 @@ void checkCollisions(Object* map, Bunny bunnies[])
 					if(bunnies[i].state != DOWN && !(map[i * MAX_OBJECTS + j].isFlower))
 					{
 						bunnies[i].state = HURT;
+						gameStats.healthPoints--;
+						printLives(gameStats);
 					}
 					drawBackgroundSprite(9, map[i * MAX_OBJECTS + j].column, sky);
 				}
@@ -337,6 +341,12 @@ void gameLoop()
 	}
 
 
+
+	gameStats.coinsCollected=0;
+	gameStats.healthPoints=9;
+
+
+	startValues();
 
 	// Simulate game loop.
 	while(1)
