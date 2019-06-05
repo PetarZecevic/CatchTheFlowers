@@ -294,11 +294,26 @@ void checkCollisions(Object* map, Bunny bunnies[])
 				{
 					map[i * MAX_OBJECTS + j].valid = false;
 					// Check if bunny is hurt.
-					if(bunnies[i].state != DOWN && !(map[i * MAX_OBJECTS + j].isFlower))
+
+					//I checked frame because with states there is a problem
+					if((bunnies[i].frame != DOWN1) && !(map[i * MAX_OBJECTS + j].isFlower))
 					{
 						bunnies[i].state = HURT;
 						gameStats.healthPoints--;
 						printLives(gameStats);
+					}else if((bunnies[i].frame==DOWN1) && (map[i * MAX_OBJECTS + j].isFlower))
+					{
+						gameStats.healthPoints--;
+						printLives(gameStats);
+					}else if(bunnies[i].frame!=DOWN  && (map[i * MAX_OBJECTS + j].isFlower))
+					{
+						if(map[i * MAX_OBJECTS + j].roseOrYellow){
+							gameStats.coinsCollected++;
+							printCoins(gameStats);
+						}else{
+							gameStats.coinsCollected+=2;
+							printCoins(gameStats);
+						}
 					}
 					drawBackgroundSprite(9, map[i * MAX_OBJECTS + j].column, sky);
 				}
@@ -388,6 +403,10 @@ void gameLoop()
 		itemRotationSpeed++;
 		itemInsertSpeed++;
 		bunnyMovingSpeed++;
+		if(gameStats.healthPoints==0){
+			drawEndGame();
+			break;
+		}
 	}
 }
 
