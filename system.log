@@ -15743,7 +15743,11 @@ Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.
 
 
 ********************************************************************************
+<<<<<<< Updated upstream
 At Local date and time: Wed Jun 05 11:44:23 2019
+=======
+At Local date and time: Wed Jun 05 09:33:21 2019
+>>>>>>> Stashed changes
  make -f system.make exporttosdk started...
 IF NOT EXIST "SDK\SDK_Export\hw" @mkdir "SDK\SDK_Export\hw"
 psf2Edward -inp system.xmp -exit_on_error -dont_add_loginfo -make_inst_lower -edwver 1.2 -xml SDK\SDK_Export\hw/system.xml 
@@ -15831,7 +15835,11 @@ WARNING:EDK - INFO:Security:50 - The XILINXD_LICENSE_FILE environment variable
    qualify for Xilinx software updates or new releases.
 
 
+<<<<<<< Updated upstream
 Parse C:/Users/student/Desktop/RA136/CatchTheFlowers/system.mhs ...
+=======
+Parse D:/RA93-2016/CatchTheFlowers/system.mhs ...
+>>>>>>> Stashed changes
 
 Read MPD definitions ...
 
@@ -16031,13 +16039,19 @@ Creating hardware output directories ...
 
 Managing hardware (BBD-specified) netlist files ...
 IPNAME:vga_periph_mem INSTANCE:vga_periph_mem_0 -
+<<<<<<< Updated upstream
 C:\Users\student\Desktop\RA136\CatchTheFlowers\system.mhs line 33 - Copying
 (BBD-specified) netlist files.
+=======
+D:\RA93-2016\CatchTheFlowers\system.mhs line 33 - Copying (BBD-specified)
+netlist files.
+>>>>>>> Stashed changes
 
 Managing cache ...
 
 Elaborating instances ...
 IPNAME:bram_block INSTANCE:microblaze_0_bram_block_0 -
+<<<<<<< Updated upstream
 C:\Users\student\Desktop\RA136\CatchTheFlowers\system.mhs line 113 - elaborating
 IP
 IPNAME:bram_block INSTANCE:microblaze_0_bram_block_1 -
@@ -16046,6 +16060,13 @@ IP
 IPNAME:clock_generator INSTANCE:clock_generator_0 -
 C:\Users\student\Desktop\RA136\CatchTheFlowers\system.mhs line 157 - elaborating
 IP
+=======
+D:\RA93-2016\CatchTheFlowers\system.mhs line 113 - elaborating IP
+IPNAME:bram_block INSTANCE:microblaze_0_bram_block_1 -
+D:\RA93-2016\CatchTheFlowers\system.mhs line 213 - elaborating IP
+IPNAME:clock_generator INSTANCE:clock_generator_0 -
+D:\RA93-2016\CatchTheFlowers\system.mhs line 157 - elaborating IP
+>>>>>>> Stashed changes
 ClkGen elaborate status: PASSED
 ----------------------------------------
 ----------------------------------------
@@ -16069,6 +16090,7 @@ Running XST synthesis ...
 INFO:EDK:4211 - The following instances are synthesized with XST. The MPD option
    IMP_NETLIST=TRUE indicates that a NGC file is to be produced using XST
    synthesis. IMP_NETLIST=FALSE (default) instances are not synthesized. 
+<<<<<<< Updated upstream
 INSTANCE:vga_periph_mem_0 -
 C:\Users\student\Desktop\RA136\CatchTheFlowers\system.mhs line 33 - Running XST
 synthesis
@@ -16165,14 +16187,102 @@ PMSPEC -- Overriding Xilinx file
 INSTANCE:microblaze_0_i_bram_ctrl_1 -
 C:\Users\student\Desktop\RA136\CatchTheFlowers\system.mhs line 220 - Running XST
 synthesis
+=======
+INSTANCE:vga_periph_mem_0 - D:\RA93-2016\CatchTheFlowers\system.mhs line 33 -
+Running XST synthesis
+PMSPEC -- Overriding Xilinx file
+<C:/Xilinx/14.6/ISE_DS/EDK/spartan6/data/spartan6.acd> with local file
+<C:/Xilinx/14.6/ISE_DS/ISE/spartan6/data/spartan6.acd>
+INSTANCE:proc_sys_reset_0 - D:\RA93-2016\CatchTheFlowers\system.mhs line 57 -
+Running XST synthesis
+PMSPEC -- Overriding Xilinx file
+<C:/Xilinx/14.6/ISE_DS/EDK/spartan6/data/spartan6.acd> with local file
+<C:/Xilinx/14.6/ISE_DS/ISE/spartan6/data/spartan6.acd>
+INSTANCE:my_peripheral_0 - D:\RA93-2016\CatchTheFlowers\system.mhs line 70 -
+Running XST synthesis
+PMSPEC -- Overriding Xilinx file
+<C:/Xilinx/14.6/ISE_DS/EDK/spartan6/data/spartan6.acd> with local file
+<C:/Xilinx/14.6/ISE_DS/ISE/spartan6/data/spartan6.acd>
+INSTANCE:microblaze_0_ilmb - D:\RA93-2016\CatchTheFlowers\system.mhs line 81 -
+Running XST synthesis
+PMSPEC -- Overriding Xilinx file
+<C:/Xilinx/14.6/ISE_DS/EDK/spartan6/data/spartan6.acd> with local file
+<C:/Xilinx/14.6/ISE_DS/ISE/spartan6/data/spartan6.acd>
+INSTANCE:microblaze_0_dlmb - D:\RA93-2016\CatchTheFlowers\system.mhs line 88 -
+Running XST synthesis
+PMSPEC -- Overriding Xilinx file
+<C:/Xilinx/14.6/ISE_DS/EDK/spartan6/data/spartan6.acd> with local file
+<C:/Xilinx/14.6/ISE_DS/ISE/spartan6/data/spartan6.acd>
+INSTANCE:microblaze_0_d_bram_ctrl_0 - D:\RA93-2016\CatchTheFlowers\system.mhs
+line 95 - Running XST synthesis
+PMSPEC -- Overriding Xilinx file
+<C:/Xilinx/14.6/ISE_DS/EDK/spartan6/data/spartan6.acd> with local file
+<C:/Xilinx/14.6/ISE_DS/ISE/spartan6/data/spartan6.acd>
+INSTANCE:microblaze_0_i_bram_ctrl_0 - D:\RA93-2016\CatchTheFlowers\system.mhs
+line 104 - Running XST synthesis
+PMSPEC -- Overriding Xilinx file
+<C:/Xilinx/14.6/ISE_DS/EDK/spartan6/data/spartan6.acd> with local file
+<C:/Xilinx/14.6/ISE_DS/ISE/spartan6/data/spartan6.acd>
+INSTANCE:microblaze_0_bram_block_0 - D:\RA93-2016\CatchTheFlowers\system.mhs
+line 113 - Running XST synthesis
+PMSPEC -- Overriding Xilinx file
+<C:/Xilinx/14.6/ISE_DS/EDK/spartan6/data/spartan6.acd> with local file
+<C:/Xilinx/14.6/ISE_DS/ISE/spartan6/data/spartan6.acd>
+INSTANCE:microblaze_0 - D:\RA93-2016\CatchTheFlowers\system.mhs line 120 -
+Running XST synthesis
+PMSPEC -- Overriding Xilinx file
+<C:/Xilinx/14.6/ISE_DS/EDK/spartan6/data/spartan6.acd> with local file
+<C:/Xilinx/14.6/ISE_DS/ISE/spartan6/data/spartan6.acd>
+INSTANCE:debug_module - D:\RA93-2016\CatchTheFlowers\system.mhs line 144 -
+Running XST synthesis
+PMSPEC -- Overriding Xilinx file
+<C:/Xilinx/14.6/ISE_DS/EDK/spartan6/data/spartan6.acd> with local file
+<C:/Xilinx/14.6/ISE_DS/ISE/spartan6/data/spartan6.acd>
+INSTANCE:clock_generator_0 - D:\RA93-2016\CatchTheFlowers\system.mhs line 157 -
+Running XST synthesis
+PMSPEC -- Overriding Xilinx file
+<C:/Xilinx/14.6/ISE_DS/EDK/spartan6/data/spartan6.acd> with local file
+<C:/Xilinx/14.6/ISE_DS/ISE/spartan6/data/spartan6.acd>
+INSTANCE:axi4lite_0 - D:\RA93-2016\CatchTheFlowers\system.mhs line 170 - Running
+XST synthesis
+PMSPEC -- Overriding Xilinx file
+<C:/Xilinx/14.6/ISE_DS/EDK/spartan6/data/spartan6.acd> with local file
+<C:/Xilinx/14.6/ISE_DS/ISE/spartan6/data/spartan6.acd>
+INSTANCE:rs232 - D:\RA93-2016\CatchTheFlowers\system.mhs line 178 - Running XST
+synthesis
+PMSPEC -- Overriding Xilinx file
+<C:/Xilinx/14.6/ISE_DS/EDK/spartan6/data/spartan6.acd> with local file
+<C:/Xilinx/14.6/ISE_DS/ISE/spartan6/data/spartan6.acd>
+INSTANCE:axi_intc_0 - D:\RA93-2016\CatchTheFlowers\system.mhs line 193 - Running
+XST synthesis
+PMSPEC -- Overriding Xilinx file
+<C:/Xilinx/14.6/ISE_DS/EDK/spartan6/data/spartan6.acd> with local file
+<C:/Xilinx/14.6/ISE_DS/ISE/spartan6/data/spartan6.acd>
+INSTANCE:microblaze_0_d_bram_ctrl_1 - D:\RA93-2016\CatchTheFlowers\system.mhs
+line 204 - Running XST synthesis
+PMSPEC -- Overriding Xilinx file
+<C:/Xilinx/14.6/ISE_DS/EDK/spartan6/data/spartan6.acd> with local file
+<C:/Xilinx/14.6/ISE_DS/ISE/spartan6/data/spartan6.acd>
+INSTANCE:microblaze_0_bram_block_1 - D:\RA93-2016\CatchTheFlowers\system.mhs
+line 213 - Running XST synthesis
+PMSPEC -- Overriding Xilinx file
+<C:/Xilinx/14.6/ISE_DS/EDK/spartan6/data/spartan6.acd> with local file
+<C:/Xilinx/14.6/ISE_DS/ISE/spartan6/data/spartan6.acd>
+INSTANCE:microblaze_0_i_bram_ctrl_1 - D:\RA93-2016\CatchTheFlowers\system.mhs
+line 220 - Running XST synthesis
+>>>>>>> Stashed changes
 PMSPEC -- Overriding Xilinx file
 <C:/Xilinx/14.6/ISE_DS/EDK/spartan6/data/spartan6.acd> with local file
 <C:/Xilinx/14.6/ISE_DS/ISE/spartan6/data/spartan6.acd>
 
 Running NGCBUILD ...
 IPNAME:system_vga_periph_mem_0_wrapper INSTANCE:vga_periph_mem_0 -
+<<<<<<< Updated upstream
 C:\Users\student\Desktop\RA136\CatchTheFlowers\system.mhs line 33 - Running
 NGCBUILD
+=======
+D:\RA93-2016\CatchTheFlowers\system.mhs line 33 - Running NGCBUILD
+>>>>>>> Stashed changes
 PMSPEC -- Overriding Xilinx file
 <C:/Xilinx/14.6/ISE_DS/EDK/spartan6/data/spartan6.acd> with local file
 <C:/Xilinx/14.6/ISE_DS/ISE/spartan6/data/spartan6.acd>
@@ -16182,11 +16292,19 @@ xc6slx45fgg676-2 -intstyle silent -i -sd .. system_vga_periph_mem_0_wrapper.ngc
 ../system_vga_periph_mem_0_wrapper
 
 Reading NGO file
+<<<<<<< Updated upstream
 "C:/Users/student/Desktop/RA136/CatchTheFlowers/implementation/vga_periph_mem_0_
 wrapper/system_vga_periph_mem_0_wrapper.ngc" ...
 Loading design module
 "C:\Users\student\Desktop\RA136\CatchTheFlowers\implementation\vga_periph_mem_0_
 wrapper/char_rom_def.ngc"...
+=======
+"D:/RA93-2016/CatchTheFlowers/implementation/vga_periph_mem_0_wrapper/system_vga
+_periph_mem_0_wrapper.ngc" ...
+Loading design module
+"D:\RA93-2016\CatchTheFlowers\implementation\vga_periph_mem_0_wrapper/char_rom_d
+ef.ngc"...
+>>>>>>> Stashed changes
 
 Partition Implementation Status
 -------------------------------
@@ -16207,8 +16325,12 @@ Writing NGCBUILD log file "../system_vga_periph_mem_0_wrapper.blc"...
 
 NGCBUILD done.
 IPNAME:system_microblaze_0_ilmb_wrapper INSTANCE:microblaze_0_ilmb -
+<<<<<<< Updated upstream
 C:\Users\student\Desktop\RA136\CatchTheFlowers\system.mhs line 81 - Running
 NGCBUILD
+=======
+D:\RA93-2016\CatchTheFlowers\system.mhs line 81 - Running NGCBUILD
+>>>>>>> Stashed changes
 PMSPEC -- Overriding Xilinx file
 <C:/Xilinx/14.6/ISE_DS/EDK/spartan6/data/spartan6.acd> with local file
 <C:/Xilinx/14.6/ISE_DS/ISE/spartan6/data/spartan6.acd>
@@ -16218,8 +16340,13 @@ xc6slx45fgg676-2 -intstyle silent -i -sd .. system_microblaze_0_ilmb_wrapper.ngc
 ../system_microblaze_0_ilmb_wrapper
 
 Reading NGO file
+<<<<<<< Updated upstream
 "C:/Users/student/Desktop/RA136/CatchTheFlowers/implementation/microblaze_0_ilmb
 _wrapper/system_microblaze_0_ilmb_wrapper.ngc" ...
+=======
+"D:/RA93-2016/CatchTheFlowers/implementation/microblaze_0_ilmb_wrapper/system_mi
+croblaze_0_ilmb_wrapper.ngc" ...
+>>>>>>> Stashed changes
 
 Partition Implementation Status
 -------------------------------
@@ -16233,15 +16360,24 @@ NGCBUILD Design Results Summary:
   Number of warnings:   0
 
 Writing NGC file "../system_microblaze_0_ilmb_wrapper.ngc" ...
+<<<<<<< Updated upstream
 Total REAL time to NGCBUILD completion:  2 sec
 Total CPU time to NGCBUILD completion:   2 sec
+=======
+Total REAL time to NGCBUILD completion:  1 sec
+Total CPU time to NGCBUILD completion:   1 sec
+>>>>>>> Stashed changes
 
 Writing NGCBUILD log file "../system_microblaze_0_ilmb_wrapper.blc"...
 
 NGCBUILD done.
 IPNAME:system_microblaze_0_dlmb_wrapper INSTANCE:microblaze_0_dlmb -
+<<<<<<< Updated upstream
 C:\Users\student\Desktop\RA136\CatchTheFlowers\system.mhs line 88 - Running
 NGCBUILD
+=======
+D:\RA93-2016\CatchTheFlowers\system.mhs line 88 - Running NGCBUILD
+>>>>>>> Stashed changes
 PMSPEC -- Overriding Xilinx file
 <C:/Xilinx/14.6/ISE_DS/EDK/spartan6/data/spartan6.acd> with local file
 <C:/Xilinx/14.6/ISE_DS/ISE/spartan6/data/spartan6.acd>
@@ -16251,8 +16387,13 @@ xc6slx45fgg676-2 -intstyle silent -i -sd .. system_microblaze_0_dlmb_wrapper.ngc
 ../system_microblaze_0_dlmb_wrapper
 
 Reading NGO file
+<<<<<<< Updated upstream
 "C:/Users/student/Desktop/RA136/CatchTheFlowers/implementation/microblaze_0_dlmb
 _wrapper/system_microblaze_0_dlmb_wrapper.ngc" ...
+=======
+"D:/RA93-2016/CatchTheFlowers/implementation/microblaze_0_dlmb_wrapper/system_mi
+croblaze_0_dlmb_wrapper.ngc" ...
+>>>>>>> Stashed changes
 
 Partition Implementation Status
 -------------------------------
@@ -16273,8 +16414,12 @@ Writing NGCBUILD log file "../system_microblaze_0_dlmb_wrapper.blc"...
 
 NGCBUILD done.
 IPNAME:system_microblaze_0_wrapper INSTANCE:microblaze_0 -
+<<<<<<< Updated upstream
 C:\Users\student\Desktop\RA136\CatchTheFlowers\system.mhs line 120 - Running
 NGCBUILD
+=======
+D:\RA93-2016\CatchTheFlowers\system.mhs line 120 - Running NGCBUILD
+>>>>>>> Stashed changes
 PMSPEC -- Overriding Xilinx file
 <C:/Xilinx/14.6/ISE_DS/EDK/spartan6/data/spartan6.acd> with local file
 <C:/Xilinx/14.6/ISE_DS/ISE/spartan6/data/spartan6.acd>
@@ -16284,8 +16429,13 @@ xc6slx45fgg676-2 -intstyle silent -i -sd .. system_microblaze_0_wrapper.ngc
 ../system_microblaze_0_wrapper
 
 Reading NGO file
+<<<<<<< Updated upstream
 "C:/Users/student/Desktop/RA136/CatchTheFlowers/implementation/microblaze_0_wrap
 per/system_microblaze_0_wrapper.ngc" ...
+=======
+"D:/RA93-2016/CatchTheFlowers/implementation/microblaze_0_wrapper/system_microbl
+aze_0_wrapper.ngc" ...
+>>>>>>> Stashed changes
 
 Partition Implementation Status
 -------------------------------
@@ -16306,8 +16456,12 @@ Writing NGCBUILD log file "../system_microblaze_0_wrapper.blc"...
 
 NGCBUILD done.
 IPNAME:system_clock_generator_0_wrapper INSTANCE:clock_generator_0 -
+<<<<<<< Updated upstream
 C:\Users\student\Desktop\RA136\CatchTheFlowers\system.mhs line 157 - Running
 NGCBUILD
+=======
+D:\RA93-2016\CatchTheFlowers\system.mhs line 157 - Running NGCBUILD
+>>>>>>> Stashed changes
 PMSPEC -- Overriding Xilinx file
 <C:/Xilinx/14.6/ISE_DS/EDK/spartan6/data/spartan6.acd> with local file
 <C:/Xilinx/14.6/ISE_DS/ISE/spartan6/data/spartan6.acd>
@@ -16317,8 +16471,13 @@ xc6slx45fgg676-2 -intstyle silent -i -sd .. system_clock_generator_0_wrapper.ngc
 ../system_clock_generator_0_wrapper
 
 Reading NGO file
+<<<<<<< Updated upstream
 "C:/Users/student/Desktop/RA136/CatchTheFlowers/implementation/clock_generator_0
 _wrapper/system_clock_generator_0_wrapper.ngc" ...
+=======
+"D:/RA93-2016/CatchTheFlowers/implementation/clock_generator_0_wrapper/system_cl
+ock_generator_0_wrapper.ngc" ...
+>>>>>>> Stashed changes
 
 Partition Implementation Status
 -------------------------------
@@ -16339,8 +16498,12 @@ Writing NGCBUILD log file "../system_clock_generator_0_wrapper.blc"...
 
 NGCBUILD done.
 IPNAME:system_axi4lite_0_wrapper INSTANCE:axi4lite_0 -
+<<<<<<< Updated upstream
 C:\Users\student\Desktop\RA136\CatchTheFlowers\system.mhs line 170 - Running
 NGCBUILD
+=======
+D:\RA93-2016\CatchTheFlowers\system.mhs line 170 - Running NGCBUILD
+>>>>>>> Stashed changes
 PMSPEC -- Overriding Xilinx file
 <C:/Xilinx/14.6/ISE_DS/EDK/spartan6/data/spartan6.acd> with local file
 <C:/Xilinx/14.6/ISE_DS/ISE/spartan6/data/spartan6.acd>
@@ -16350,8 +16513,13 @@ xc6slx45fgg676-2 -intstyle silent -i -sd .. system_axi4lite_0_wrapper.ngc
 ../system_axi4lite_0_wrapper
 
 Reading NGO file
+<<<<<<< Updated upstream
 "C:/Users/student/Desktop/RA136/CatchTheFlowers/implementation/axi4lite_0_wrappe
 r/system_axi4lite_0_wrapper.ngc" ...
+=======
+"D:/RA93-2016/CatchTheFlowers/implementation/axi4lite_0_wrapper/system_axi4lite_
+0_wrapper.ngc" ...
+>>>>>>> Stashed changes
 
 Partition Implementation Status
 -------------------------------
@@ -16365,8 +16533,13 @@ NGCBUILD Design Results Summary:
   Number of warnings:   0
 
 Writing NGC file "../system_axi4lite_0_wrapper.ngc" ...
+<<<<<<< Updated upstream
 Total REAL time to NGCBUILD completion:  1 sec
 Total CPU time to NGCBUILD completion:   1 sec
+=======
+Total REAL time to NGCBUILD completion:  2 sec
+Total CPU time to NGCBUILD completion:   2 sec
+>>>>>>> Stashed changes
 
 Writing NGCBUILD log file "../system_axi4lite_0_wrapper.blc"...
 
@@ -16377,7 +16550,11 @@ INFO:EDK:3509 - NCF files should not be modified as they will be regenerated.
 
 Rebuilding cache ...
 
+<<<<<<< Updated upstream
 Total run time: 142.00 seconds
+=======
+Total run time: 153.00 seconds
+>>>>>>> Stashed changes
 "Running synthesis..."
 cd synthesis & synthesis.cmd
 "xst -ifn "system_xst.scr" -intstyle silent"
@@ -16398,20 +16575,33 @@ PMSPEC -- Overriding Xilinx file
 <C:/Xilinx/14.6/ISE_DS/EDK/spartan6/data/spartan6.acd> with local file
 <C:/Xilinx/14.6/ISE_DS/ISE/spartan6/data/spartan6.acd>
 .... Copying flowfile C:/Xilinx/14.6/ISE_DS/ISE/xilinx/data/fpga.flw into
+<<<<<<< Updated upstream
 working directory C:/Users/student/Desktop/RA136/CatchTheFlowers/implementation 
 
 Using Flow File:
 C:/Users/student/Desktop/RA136/CatchTheFlowers/implementation/fpga.flw 
 Using Option File(s): 
  C:/Users/student/Desktop/RA136/CatchTheFlowers/implementation/xflow.opt 
+=======
+working directory D:/RA93-2016/CatchTheFlowers/implementation 
+
+Using Flow File: D:/RA93-2016/CatchTheFlowers/implementation/fpga.flw 
+Using Option File(s): 
+ D:/RA93-2016/CatchTheFlowers/implementation/xflow.opt 
+>>>>>>> Stashed changes
 
 Creating Script File ... 
 
 #----------------------------------------------#
 # Starting program ngdbuild
 # ngdbuild -p xc6slx45fgg676-2 -nt timestamp -bm system.bmm
+<<<<<<< Updated upstream
 "C:/Users/student/Desktop/RA136/CatchTheFlowers/implementation/system.ngc" -uc
 system.ucf system.ngd 
+=======
+"D:/RA93-2016/CatchTheFlowers/implementation/system.ngc" -uc system.ucf
+system.ngd 
+>>>>>>> Stashed changes
 #----------------------------------------------#
 Release 14.6 - ngdbuild P.68d (nt64)
 Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
@@ -16421,6 +16611,7 @@ PMSPEC -- Overriding Xilinx file
 
 Command Line: C:\Xilinx\14.6\ISE_DS\ISE\bin\nt64\unwrapped\ngdbuild.exe -p
 xc6slx45fgg676-2 -nt timestamp -bm system.bmm
+<<<<<<< Updated upstream
 C:/Users/student/Desktop/RA136/CatchTheFlowers/implementation/system.ngc -uc
 system.ucf system.ngd
 
@@ -16496,6 +16687,76 @@ Checking Constraint Associations...
 Applying constraints in
 "C:/Users/student/Desktop/RA136/CatchTheFlowers/implementation/system_microblaze
 _0_wrapper.ncf" to module "microblaze_0"...
+=======
+D:/RA93-2016/CatchTheFlowers/implementation/system.ngc -uc system.ucf system.ngd
+
+Reading NGO file "D:/RA93-2016/CatchTheFlowers/implementation/system.ngc" ...
+Loading design module
+"D:/RA93-2016/CatchTheFlowers/implementation/system_my_peripheral_0_wrapper.ngc"
+...
+Loading design module
+"D:/RA93-2016/CatchTheFlowers/implementation/system_rs232_wrapper.ngc"...
+Loading design module
+"D:/RA93-2016/CatchTheFlowers/implementation/system_vga_periph_mem_0_wrapper.ngc
+"...
+Loading design module
+"D:/RA93-2016/CatchTheFlowers/implementation/system_proc_sys_reset_0_wrapper.ngc
+"...
+Loading design module
+"D:/RA93-2016/CatchTheFlowers/implementation/system_clock_generator_0_wrapper.ng
+c"...
+Loading design module
+"D:/RA93-2016/CatchTheFlowers/implementation/system_axi_intc_0_wrapper.ngc"...
+Loading design module
+"D:/RA93-2016/CatchTheFlowers/implementation/system_microblaze_0_ilmb_wrapper.ng
+c"...
+Loading design module
+"D:/RA93-2016/CatchTheFlowers/implementation/system_microblaze_0_dlmb_wrapper.ng
+c"...
+Loading design module
+"D:/RA93-2016/CatchTheFlowers/implementation/system_axi4lite_0_wrapper.ngc"...
+Loading design module
+"D:/RA93-2016/CatchTheFlowers/implementation/system_microblaze_0_wrapper.ngc"...
+Loading design module
+"D:/RA93-2016/CatchTheFlowers/implementation/system_microblaze_0_i_bram_ctrl_0_w
+rapper.ngc"...
+Loading design module
+"D:/RA93-2016/CatchTheFlowers/implementation/system_microblaze_0_i_bram_ctrl_1_w
+rapper.ngc"...
+Loading design module
+"D:/RA93-2016/CatchTheFlowers/implementation/system_microblaze_0_d_bram_ctrl_0_w
+rapper.ngc"...
+Loading design module
+"D:/RA93-2016/CatchTheFlowers/implementation/system_microblaze_0_d_bram_ctrl_1_w
+rapper.ngc"...
+Loading design module
+"D:/RA93-2016/CatchTheFlowers/implementation/system_debug_module_wrapper.ngc"...
+Loading design module
+"D:/RA93-2016/CatchTheFlowers/implementation/system_microblaze_0_bram_block_0_wr
+apper.ngc"...
+Loading design module
+"D:/RA93-2016/CatchTheFlowers/implementation/system_microblaze_0_bram_block_1_wr
+apper.ngc"...
+Applying constraints in
+"D:/RA93-2016/CatchTheFlowers/implementation/system_axi_intc_0_wrapper.ncf" to
+module "axi_intc_0"...
+Checking Constraint Associations...
+Applying constraints in
+"D:/RA93-2016/CatchTheFlowers/implementation/system_microblaze_0_ilmb_wrapper.nc
+f" to module "microblaze_0_ilmb"...
+Checking Constraint Associations...
+Applying constraints in
+"D:/RA93-2016/CatchTheFlowers/implementation/system_microblaze_0_dlmb_wrapper.nc
+f" to module "microblaze_0_dlmb"...
+Checking Constraint Associations...
+Applying constraints in
+"D:/RA93-2016/CatchTheFlowers/implementation/system_axi4lite_0_wrapper.ncf" to
+module "axi4lite_0"...
+Checking Constraint Associations...
+Applying constraints in
+"D:/RA93-2016/CatchTheFlowers/implementation/system_microblaze_0_wrapper.ncf" to
+module "microblaze_0"...
+>>>>>>> Stashed changes
 Checking Constraint Associations...
 Gathering constraint information from source properties...
 Done.
@@ -16556,8 +16817,13 @@ NGDBUILD Design Results Summary:
   Number of warnings:   6
 
 Writing NGD file "system.ngd" ...
+<<<<<<< Updated upstream
 Total REAL time to NGDBUILD completion:  33 sec
 Total CPU time to NGDBUILD completion:   33 sec
+=======
+Total REAL time to NGDBUILD completion:  36 sec
+Total CPU time to NGDBUILD completion:   36 sec
+>>>>>>> Stashed changes
 
 Writing NGDBUILD log file "system.bld"...
 
@@ -16602,6 +16868,7 @@ WARNING:Timing:3402 - The Clock Modifying COMP, vga_periph_mem_0/vga_periph_mem_
 INFO:Map:215 - The Interim Design Summary has been generated in the MAP Report
    (.mrp).
 Running timing-driven placement...
+<<<<<<< Updated upstream
 Total REAL time at the beginning of Placer: 9 secs 
 Total CPU  time at the beginning of Placer: 8 secs 
 
@@ -16613,10 +16880,24 @@ Phase 2.7  Design Feasibility Check (Checksum:c67b4ed3) REAL time: 10 secs
 
 Phase 3.31  Local Placement Optimization
 Phase 3.31  Local Placement Optimization (Checksum:5eccda03) REAL time: 10 secs 
+=======
+Total REAL time at the beginning of Placer: 10 secs 
+Total CPU  time at the beginning of Placer: 10 secs 
+
+Phase 1.1  Initial Placement Analysis
+Phase 1.1  Initial Placement Analysis (Checksum:c67b4ed3) REAL time: 11 secs 
+
+Phase 2.7  Design Feasibility Check
+Phase 2.7  Design Feasibility Check (Checksum:c67b4ed3) REAL time: 11 secs 
+
+Phase 3.31  Local Placement Optimization
+Phase 3.31  Local Placement Optimization (Checksum:5eccda03) REAL time: 11 secs 
+>>>>>>> Stashed changes
 
 Phase 4.2  Initial Placement for Architecture Specific Features
 
 Phase 4.2  Initial Placement for Architecture Specific Features
+<<<<<<< Updated upstream
 (Checksum:ea050a15) REAL time: 22 secs 
 
 Phase 5.36  Local Placement Optimization
@@ -16630,12 +16911,28 @@ Phase 7.3  Local Placement Optimization (Checksum:ea050a15) REAL time: 22 secs
 
 Phase 8.5  Local Placement Optimization
 Phase 8.5  Local Placement Optimization (Checksum:ea050a15) REAL time: 22 secs 
+=======
+(Checksum:ea050a15) REAL time: 23 secs 
+
+Phase 5.36  Local Placement Optimization
+Phase 5.36  Local Placement Optimization (Checksum:ea050a15) REAL time: 23 secs 
+
+Phase 6.30  Global Clock Region Assignment
+Phase 6.30  Global Clock Region Assignment (Checksum:ea050a15) REAL time: 23 secs 
+
+Phase 7.3  Local Placement Optimization
+Phase 7.3  Local Placement Optimization (Checksum:ea050a15) REAL time: 23 secs 
+
+Phase 8.5  Local Placement Optimization
+Phase 8.5  Local Placement Optimization (Checksum:ea050a15) REAL time: 23 secs 
+>>>>>>> Stashed changes
 
 Phase 9.8  Global Placement
 ...........................
 .......................................................................................................................................................
 ...............................
 .............
+<<<<<<< Updated upstream
 Phase 9.8  Global Placement (Checksum:c722b36f) REAL time: 39 secs 
 
 Phase 10.5  Local Placement Optimization
@@ -16652,6 +16949,24 @@ Phase 13.34  Placement Validation (Checksum:e48f041d) REAL time: 46 secs
 
 Total REAL time to Placer completion: 49 secs 
 Total CPU  time to Placer completion: 48 secs 
+=======
+Phase 9.8  Global Placement (Checksum:c722b36f) REAL time: 41 secs 
+
+Phase 10.5  Local Placement Optimization
+Phase 10.5  Local Placement Optimization (Checksum:c722b36f) REAL time: 41 secs 
+
+Phase 11.18  Placement Optimization
+Phase 11.18  Placement Optimization (Checksum:5ea3c59a) REAL time: 49 secs 
+
+Phase 12.5  Local Placement Optimization
+Phase 12.5  Local Placement Optimization (Checksum:5ea3c59a) REAL time: 49 secs 
+
+Phase 13.34  Placement Validation
+Phase 13.34  Placement Validation (Checksum:e48f041d) REAL time: 49 secs 
+
+Total REAL time to Placer completion: 52 secs 
+Total CPU  time to Placer completion: 51 secs 
+>>>>>>> Stashed changes
 Running post-placement packing...
 Writing output files...
 
@@ -16742,9 +17057,15 @@ Specific Feature Utilization:
 
 Average Fanout of Non-Clock Nets:                4.79
 
+<<<<<<< Updated upstream
 Peak Memory Usage:  587 MB
 Total REAL time to MAP completion:  51 secs 
 Total CPU time to MAP completion:   50 secs 
+=======
+Peak Memory Usage:  596 MB
+Total REAL time to MAP completion:  54 secs 
+Total CPU time to MAP completion:   53 secs 
+>>>>>>> Stashed changes
 
 Mapping completed.
 See MAP report file "system_map.mrp" for details.
@@ -16942,6 +17263,7 @@ Phase  2  : 16027 unrouted;      REAL time: 9 secs
 
 Phase  3  : 5867 unrouted;      REAL time: 19 secs 
 
+<<<<<<< Updated upstream
 Phase  4  : 5866 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 20 secs 
 
 Updating file: system.ncd with current fully routed design.
@@ -16959,6 +17281,25 @@ Phase  9  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL 
 Phase 10  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 34 secs 
 Total REAL time to Router completion: 34 secs 
 Total CPU time to Router completion: 32 secs 
+=======
+Phase  4  : 5866 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 21 secs 
+
+Updating file: system.ncd with current fully routed design.
+
+Phase  5  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 34 secs 
+
+Phase  6  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 34 secs 
+
+Phase  7  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 34 secs 
+
+Phase  8  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 34 secs 
+
+Phase  9  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 34 secs 
+
+Phase 10  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 35 secs 
+Total REAL time to Router completion: 35 secs 
+Total CPU time to Router completion: 34 secs 
+>>>>>>> Stashed changes
 
 Partition Implementation Status
 -------------------------------
@@ -17072,9 +17413,15 @@ All signals are completely routed.
 WARNING:Par:283 - There are 18 loadless signals in this design. This design will cause Bitgen to issue DRC warnings.
 
 Total REAL time to PAR completion: 38 secs 
+<<<<<<< Updated upstream
 Total CPU time to PAR completion: 34 secs 
 
 Peak Memory Usage:  555 MB
+=======
+Total CPU time to PAR completion: 36 secs 
+
+Peak Memory Usage:  557 MB
+>>>>>>> Stashed changes
 
 Placer: Placement generated during map.
 Routing: Completed - No errors found.
@@ -17147,14 +17494,22 @@ Design statistics:
    Minimum period:   9.614ns (Maximum frequency: 104.015MHz)
 
 
+<<<<<<< Updated upstream
 Analysis completed Wed Jun 05 11:49:32 2019
+=======
+Analysis completed Wed Jun 05 09:38:53 2019
+>>>>>>> Stashed changes
 --------------------------------------------------------------------------------
 
 Generating Report ...
 
 Number of warnings: 1
 Number of info messages: 4
+<<<<<<< Updated upstream
 Total time: 7 secs 
+=======
+Total time: 8 secs 
+>>>>>>> Stashed changes
 
 
 xflow done!
@@ -17175,7 +17530,11 @@ C:\Xilinx\14.6\ISE_DS\ISE\;C:\Xilinx\14.6\ISE_DS\EDK.
    "system" is an NCD, version 3.2, device xc6slx45, package fgg676, speed -2
 Opened constraints file system.pcf.
 
+<<<<<<< Updated upstream
 Wed Jun 05 11:49:37 2019
+=======
+Wed Jun 05 09:38:58 2019
+>>>>>>> Stashed changes
 
 Running DRC.
 WARNING:PhysDesignRules:372 - Gated clock. Clock net
@@ -17280,8 +17639,13 @@ WARNING:EDK:3888 - Worker process returned 0 but issued error message(s).
 Done!
 
 ********************************************************************************
+<<<<<<< Updated upstream
 At Local date and time: Wed Jun 05 11:49:52 2019
  xsdk.exe -hwspec C:\Users\student\Desktop\RA136\CatchTheFlowers\SDK\SDK_Export\hw\system.xml started...
+=======
+At Local date and time: Wed Jun 05 09:39:14 2019
+ xsdk.exe -hwspec D:\RA93-2016\CatchTheFlowers\SDK\SDK_Export\hw\system.xml started...
+>>>>>>> Stashed changes
 Xilinx Software Development Kit
 Xilinx EDK 14.6 Build EDK_P.68d
 Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.

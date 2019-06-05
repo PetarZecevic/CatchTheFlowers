@@ -3,6 +3,7 @@
 
 #include "bunny.h"
 #include "sprite.h"
+#include "object.h"
 
 // Init graphics.
 void init();
@@ -10,8 +11,14 @@ void init();
 void drawBackgroundSprite(unsigned int row, unsigned int column, const BackgroundSprite background);
 void drawBunny(Bunny* bunny);
 void drawSprite(int out_x, int out_y, int spriteWidth, int spriteHeight, int spriteBytesPerPixel, const unsigned char* spriteData);
+<<<<<<< Updated upstream
 void printNum(int row,int column,int num);
 void printCoins();
 void printLives();
+=======
+void drawOneObject(Object* obj);
+void drawObjectMap(Object* map);
+void updateObjectMap(Object* map);
+>>>>>>> Stashed changes
 
 #endif /* RENDER_H_ */

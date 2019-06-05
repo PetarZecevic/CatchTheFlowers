@@ -10,6 +10,18 @@ void Bunny_Init(Bunny* bunny, int row, int column)
 	bunny->column = column;
 }
 
+void flipBunnyBasket(Bunny* bunny)
+{
+	if(bunny->state == UP)
+	{
+		bunny->transitDir = TRANSIT_DOWN;
+	}
+	else if(bunny->state == DOWN)
+	{
+		bunny->transitDir = TRANSIT_UP;
+	}
+}
+
 void Bunny_ChangeFrame(Bunny* bunny)
 {
 	switch(bunny->state)

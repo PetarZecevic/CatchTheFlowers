@@ -19,6 +19,7 @@ typedef struct{
 
 
 void Bunny_Init(Bunny* bunny, int row, int column);
+void flipBunnyBasket(Bunny* bunny);
 // Automatically change frames based on state and directions.
 void Bunny_ChangeFrame(Bunny* bunny);
 

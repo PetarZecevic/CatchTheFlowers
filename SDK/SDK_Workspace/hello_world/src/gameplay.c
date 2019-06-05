@@ -27,132 +27,18 @@
 #include "game_config.h"
 #include "bunny.h"
 #include "sprite.h"
+#include "render.h"
+
+#define ITEM_STEP 3
+
+extern const BackgroundSprite ground, sky;
 
 GameStats gameStats;
-unsigned char map1[SIZEROW][SIZECOLUMN] = {{[0 ... SIZEROW-1] = GRASS}, {[0 ... SIZECOLUMN-1] = GRASS}};
-unsigned char box[3] = {DIRT, DIRT, DIRT}; // Boxes that collect flowers, DIRT-means collect, BUSH-means reject.
-int itemColumns[3] = {2, 10, 17}; // Columns on map from which items will appear.
-bool endGame = false;
+Object matrix[PATHS][MAX_OBJECTS];
 
+const int bunnyColumns[3] = {2, 9, 15};
 
-/*
-//extracting pixel data from a picture for printing out on the display
-void drawSprite(int in_x, int in_y, int out_x, int out_y, int width, int height)
-{
-	int x, y, ox, oy, oi, iy, ix, ii, R, G, B, RGB;
-	for (y = 0; y < height; y++)
-	{
-		for (x = 0; x < width; x++)
-		{
-			ox = out_x + x;
-			oy = out_y + y;
-			oi = oy * 320 + ox;
-			ix = in_x + x;
-			iy = in_y + y;
-			ii = iy * towerdefence_sprites.width + ix;
-			R = towerdefence_sprites.pixel_data[ii
-					* towerdefence_sprites.bytes_per_pixel] >> 5;
-			G = towerdefence_sprites.pixel_data[ii
-					* towerdefence_sprites.bytes_per_pixel + 1] >> 5;
-			B = towerdefence_sprites.pixel_data[ii
-					* towerdefence_sprites.bytes_per_pixel + 2] >> 5;
-			R <<= 6;
-			G <<= 3;
-			RGB = R | G | B;
-
-			VGA_PERIPH_MEM_mWriteMemory(
-					XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + GRAPHICS_MEM_OFF
-							+ oi * 4 , RGB);
-		}
-	}
-}
-*/
-
-void drawMap()
-{
-	int row, column;
-	for (row = 0; row < SIZEROW; row++)
-	{
-		for (column = 0; column < SIZECOLUMN; column++)
-		{
-			if(mapChanges[row][column])
-			{
-				mapChanges[row][column] = false;
-				if (map1[row][column] == GRASS)
-					drawSprite(16, 0, column * 16, row * 16, 16, 16);
-
-				else if (map1[row][column] == DIRT || map1[row][column] == DIRTPREVIOUS)
-					drawSprite(0, 0, column * 16, row * 16, 16, 16);
-
-				else if (map1[row][column] == BUSH)
-					drawSprite(32, 0, column * 16, row * 16, 16, 16);
-
-				else if (map1[row][column] == CREEP)
-					drawSprite(48, 0, column * 16, row * 16, 16, 16);
-
-				else if (map1[row][column] == CREEP1)
-					drawSprite(48, 16, column * 16, row * 16, 16, 16);
-
-				else if (map1[row][column] == CREEP2)
-					drawSprite(48, 32, column * 16, row * 16, 16, 16);
-
-				else if (map1[row][column] == CREEP3)
-					drawSprite(48, 48, column * 16, row * 16, 16, 16);
-
-				else if (map1[row][column] == CREEP4)
-					drawSprite(48, 64, column * 16, row * 16, 16, 16);
-
-				else if (map1[row][column] == LAKE1)
-					drawSprite(0, 16, column * 16, row * 16, 16, 16);
-
-				else if (map1[row][column] == LAKE2)
-					drawSprite(16, 16, column * 16, row * 16, 16, 16);
-
-				else if (map1[row][column] == LAKE3)
-					drawSprite(32, 16, column * 16, row * 16, 16, 16);
-
-				else if (map1[row][column] == LAKE4)
-					drawSprite(0, 32, column * 16, row * 16, 16, 16);
-
-				else if (map1[row][column] == LAKE5)
-					drawSprite(16, 32, column * 16, row * 16, 16, 16);
-
-				else if (map1[row][column] == LAKE6)
-					drawSprite(32, 32, column * 16, row * 16, 16, 16);
-
-				else if (map1[row][column] == SPOT)
-					drawSprite(64, 0, column * 16, row * 16, 16, 16);
-
-				else if (map1[row][column] == SELECTEDSPOT)
-					drawSprite(64, 16, column * 16, row * 16, 16, 16);
-
-				else if (map1[row][column] == TOWER)
-					drawSprite(64,32,column*16,row*16,16,16);
-
-				else if (map1[row][column] == TOWER2)
-					drawSprite(80,32,column*16,row*16,16,16);
-
-				else if(map1[row][column] == SELECTEDTOWER)
-					drawSprite(64,48,column*16,row*16,16,16);
-
-				else if(map1[row][column] == SELECTEDTOWER2)
-					drawSprite(80,48,column*16,row*16,16,16);
-
-				else if(map1[row][column] == HP1)
-					drawSprite(112,0,column*16,row*16,16,16);
-
-				else if(map1[row][column] == HP2)
-					drawSprite(112,16,column*16,row*16,16,16);
-
-				else if(map1[row][column] == HP3)
-					drawSprite(112,32,column*16,row*16,16,16);
-
-				else if(map1[row][column] == HP4)
-					drawSprite(112,48,column*16,row*16,16,16);
-			}
-		}
-	}
-}
+const int ANIMATION_SPEED = 80000, ITEM_SPEED = 50000, ROTATION_SPEED = 50000, INSERT_SPEED = 600000, TRAIL_LENGTH = 4;
 
 //draw amount of coins
 /*
@@ -218,44 +104,69 @@ void printLives(){
 		drawSprite(16,0,0,8,8,8);
 }*/
 
-//Make items fall.
-void moveItems()
+void initObjectMap(Object* map)
 {
 	int i,j;
-	unsigned char temp;
-	for(i = 0; i < 3; i++)
+	for(i = 0; i < PATHS; i++)
 	{
-		j = SIZEROW-2;
-
-		// Check for final condition.
-		temp = map1[j][itemColumns[i]];
-		if(temp == CREEP)
+		for(j = 0; j < MAX_OBJECTS; j++)
 		{
-			if(box[i] == DIRT) // flower
-				gameStats.coinsCollected += 1;
-			else if(box[i] == BUSH)
-				gameStats.healthPoints--;
+			map[i*MAX_OBJECTS + j].row = 0;
+			map[i*MAX_OBJECTS + j].valid = false;
+			map[i*MAX_OBJECTS + j].isFlower = false;
+			map[i*MAX_OBJECTS + j].column = bunnyColumns[i] + 1;
 		}
-		else if(temp == CREEP4) // rock
-		{
-			if(box[i] == DIRT)
-				gameStats.healthPoints--;
-		}
-		map1[j][itemColumns[i]] = GRASS;
-		mapChanges[j][itemColumns[i]] = true;
+	}
+}
 
-		for(j--; j >= 0; j--)
+
+
+void updateObjectMap(Object* map)
+{
+	int i,j;
+	for(i = 0; i < PATHS; i++)
+	{
+		for(j = 0; j < MAX_OBJECTS; j++)
 		{
-			if(map1[j][itemColumns[i]] == CREEP || map1[j][itemColumns[i]] == CREEP4)
+			if(map[i * MAX_OBJECTS + j].valid)
 			{
-				temp = map1[j][itemColumns[i]];
-				map1[j][itemColumns[i]] = GRASS;
-				map1[j+1][itemColumns[i]] = temp;
-				mapChanges[j][itemColumns[i]] = true;
-				mapChanges[j+1][itemColumns[i]] = true;
+				map[i * MAX_OBJECTS + j].row += ITEM_STEP;
 			}
 		}
 	}
+}
+
+// Get user input and update bunnies transit direction.
+void updateBunnies(Bunny bunnies[])
+{
+	//static int dummy;
+	static char pressedKey;
+
+	pressedKey = getPressedKey();
+	if(pressedKey != 'n')
+	{
+		if(pressedKey == 'r')
+		{
+			// Right bunny update.
+			flipBunnyBasket(&bunnies[2]);
+		}
+		else if(pressedKey == 'l')
+		{
+			// Center bunny update.
+			flipBunnyBasket(&bunnies[0]);
+		}
+		else if(pressedKey == 'c')
+		{
+			// Left bunny update.
+			flipBunnyBasket(&bunnies[1]);
+		}
+		// Added test case for HURT state.
+		else if(pressedKey == 'u')
+		{
+			bunnies[0].state = HURT;
+		}
+	}
+
 }
 
 char getPressedKey()
@@ -280,165 +191,183 @@ char getPressedKey()
 	return pressedKey;
 }
 
-// Insert item into map, in first row and predetermined column.
-// Maximum three items can be inserted at once.
-void insertItems()
-{
-	int insertItem; // stores random number that determines whether item will be inserted into column.
-	int flowerOrRock; // stores random number that determines which item will be inserted.
 
-	int i;
-	for(i = 0; i < 3; i++)
+// Insert flower or trash on map.
+void insertObjects(Object* map)
+{
+	int path = rand() % 3;
+	int flowerOrRock = rand() % 10;
+
+	for(int i = 0; i < MAX_OBJECTS; i++)
 	{
-		insertItem = rand() % 2;
-		if(insertItem == 1)
+		if(!map[path * MAX_OBJECTS + i].valid) // bug was here.
 		{
-			flowerOrRock = rand() % 2; // equal probability.
-			if(flowerOrRock == 1)
-				map1[0][itemColumns[i]] = CREEP; // insert flower.
+			map[path * MAX_OBJECTS + i].row = 0;
+			if(flowerOrRock > 7)
+			{
+				map[path * MAX_OBJECTS + i].isFlower = false;
+			}
 			else
-				map1[0][itemColumns[i]] = CREEP4; // insert rock.
-			mapChanges[0][itemColumns[i]] = true;
-		}
-	}
-}
-
-void drawEndGame()
-{
-	int row,column;
-	while(1)
-	{
-		for (row = 0; row < SIZEROW; row++)
-		{
-			for (column = 0; column < SIZECOLUMN; column++)
 			{
-				if (gameOver[row][column] == DIRT)
-					drawSprite(0, 0, column * 16, row * 16, 16, 16);
-				else if (gameOver[row][column] == CREEP)
+				map[path * MAX_OBJECTS + i].isFlower = true;
+				int roseOrYellow = rand() % 2;
+				if(roseOrYellow == 0)
 				{
-					drawSprite(48, 0, column * 16, row * 16, 16, 16);
-					gameOver[row][column] = CREEP4;
+					map[path * MAX_OBJECTS + i].roseOrYellow = true;
 				}
-				else if (gameOver[row][column] == CREEP4)
+				else
 				{
-					drawSprite(48, 64, column * 16, row * 16, 16, 16);
-					gameOver[row][column] = CREEP;
+					map[path * MAX_OBJECTS + i].roseOrYellow = false;
 				}
 			}
-		}
-	}
-}
-
-// Get input from user, and check whether to change type of boxes.
-void updateBoxes(){
-	// Change box type.
-	int dummy;
-	char pressedKey;
-	for(dummy = 0; dummy < 1000; dummy++)
-	{
-		pressedKey = getPressedKey();
-		if(pressedKey != 'n')
-		{
-			if(pressedKey == 'r')
-			{
-				if(box[2] == DIRT)
-					box[2] = BUSH;
-				else
-					box[2] = DIRT;
-
-				map1[SIZEROW-1][17] = box[2];
-				mapChanges[SIZEROW-1][17] = true;
-			}
-			else if(pressedKey == 'l')
-			{
-				if(box[0] == DIRT)
-					box[0] = BUSH;
-				else
-					box[0] = DIRT;
-
-				map1[SIZEROW-1][2] = box[0];
-				mapChanges[SIZEROW-1][2] = true;
-			}
-			else if(pressedKey == 'c')
-			{
-				if(box[1] == DIRT)
-					box[1] = BUSH;
-				else
-					box[1] = DIRT;
-
-				map1[SIZEROW-1][10] = box[1];
-				mapChanges[SIZEROW-1][10] = true;
-			}
+			map[path * MAX_OBJECTS + i].position = true;
+			map[path * MAX_OBJECTS + i].valid = true;
 			break;
 		}
 	}
 }
 
-// First level gameplay, user plays until he loses all health points.
+void updateObjectRotations(Object* map)
+{
+	int i, j;
+	for(i = 0; i < PATHS; i++)
+	{
+		for(j = 0; j < MAX_OBJECTS; j++)
+		{
+			if(map[i * MAX_OBJECTS + j].valid)
+			{
+				if(map[i * MAX_OBJECTS + j].isFlower)
+				{
+					map[i * MAX_OBJECTS + j].position = !(map[i * MAX_OBJECTS + j].position);
+				}
+			}
+		}
+	}
+}
+
+void clearObjectPaths(Object* map)
+{
+	int row, column;
+	for(int i = 0; i < PATHS; i++)
+	{
+		for(int j = 0; j < MAX_OBJECTS; j++)
+		{
+			if(map[i*MAX_OBJECTS + j].valid)
+			{
+				row = map[i*MAX_OBJECTS + j].row;
+				column = map[i*MAX_OBJECTS + j].column * 16;
+				if(row >= TRAIL_LENGTH*ITEM_STEP)
+				{
+					drawSprite(column, row - TRAIL_LENGTH * ITEM_STEP, 16, TRAIL_LENGTH * ITEM_STEP, 3, sky.pixel_data);
+				}
+				if(row < 4 && row >= 1){
+					drawSprite(column, 1, 16, row-1, 3, sky.pixel_data);
+				}
+			}
+		}
+	}
+}
+
+// Iterate through object and check for collision.
+// If collision happens, check bunny state, to determine if bunny is hurt.
+void checkCollisions(Object* map, Bunny bunnies[])
+{
+	for(int i = 0; i < PATHS; i++)
+	{
+		for(int j = 0; j < MAX_OBJECTS; j++)
+		{
+			if(map[i * MAX_OBJECTS + j].valid)
+			{
+				if(map[i * MAX_OBJECTS + j].row >= 144)
+				{
+					map[i * MAX_OBJECTS + j].valid = false;
+					// Check if bunny is hurt.
+					if(bunnies[i].state != DOWN && !(map[i * MAX_OBJECTS + j].isFlower))
+					{
+						bunnies[i].state = HURT;
+					}
+					drawBackgroundSprite(9, map[i * MAX_OBJECTS + j].column, sky);
+				}
+			}
+		}
+	}
+}
+
 void gameLoop()
 {
-	// Load first map background.
-	int row,column;
-	for (row = 0; row < SIZEROW; row++)
+
+	Bunny bunnies[3];
+
+	initObjectMap((Object*) matrix);
+
+	for(int i = 0; i < 3; i++)
 	{
-		for (column = 0; column < SIZECOLUMN; column++)
+		Bunny_Init(&bunnies[i], 10, bunnyColumns[i]);
+	}
+
+	static int bunnyMovingSpeed = 0;
+	static int itemMovingSpeed = 0;
+	static int itemRotationSpeed = 0;
+	static int itemInsertSpeed = 0;
+
+	// Draw background.
+	for(int i = 0; i < SIZEROW; i++)
+	{
+		for(int j = 0; j < SIZECOLUMN; j++)
 		{
-			map1[row][column] = map1Origin[row][column];
-			mapChanges[row][column] = true;
+			if(i < 13)
+			{
+				drawBackgroundSprite(i, j, sky);
+			}
+			else
+			{
+				drawBackgroundSprite(i, j, ground);
+			}
 		}
 	}
 
-	// Game parameters.
-	unsigned int userInputSpeed=0;
-	unsigned int itemSpeed = 0;
-	int insertItemTime = 0;
 
-	// Reset global variables.
-	gameStats.healthPoints = 3;
-	gameStats.coinsCollected = 0;
-	endGame = false;
 
-	// Initialize map.
-	drawMap();
-
-	printCoins();
-	printLives();
-
-	drawSprite(8,64,16,0,8,8);
-	drawSprite(8,72,16,8,8,8);
-
-	// Start game loop.
+	// Simulate game loop.
 	while(1)
 	{
-		if(endGame || gameStats.healthPoints == 0)
-		{
-			break;
-		}
+		updateBunnies(bunnies);
 
-		if (userInputSpeed == 10000)
+		if(bunnyMovingSpeed == ANIMATION_SPEED)
 		{
-			updateBoxes();
-			userInputSpeed = 0;
-		}
-
-		if (itemSpeed == 1000000)
-		{
-			if(insertItemTime == 5)
+			for(int j = 0; j < 3; j++)
 			{
-				insertItems();
-				insertItemTime = 0;
+				drawBunny(&bunnies[j]);
+				Bunny_ChangeFrame(&bunnies[j]);
 			}
-
-			moveItems();
-			printCoins();
-			printLives();
-			drawMap();
-
-			insertItemTime++;
-			itemSpeed=0;
+			bunnyMovingSpeed = 0;
 		}
 
-		itemSpeed++;
-		userInputSpeed++;
+		if(itemInsertSpeed == INSERT_SPEED)
+		{
+			insertObjects((Object*) matrix);
+			itemInsertSpeed = 0;
+		}
+
+		if(itemMovingSpeed == ITEM_SPEED){
+
+			clearObjectPaths((Object*) matrix);
+			drawObjectMap((Object*) matrix);
+			checkCollisions((Object*) matrix, bunnies);
+			updateObjectMap((Object*) matrix);
+			itemMovingSpeed = 0;
+		}
+
+		if(itemRotationSpeed == ROTATION_SPEED)
+		{
+			updateObjectRotations((Object*) matrix);
+			itemRotationSpeed = 0;
+		}
+
+		itemMovingSpeed++;
+		itemRotationSpeed++;
+		itemInsertSpeed++;
+		bunnyMovingSpeed++;
 	}
 }
+

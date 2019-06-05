@@ -1,12 +1,21 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
+<<<<<<< Updated upstream
   <DateModified>2019-06-05T11:44:10</DateModified>
   <ModuleName>system</ModuleName>
   <SummaryTimeStamp>2019-06-05T11:44:10</SummaryTimeStamp>
   <SavedFilePath>C:/Users/student/Desktop/RA136/CatchTheFlowers/__xps/ise/system.xreport</SavedFilePath>
   <FilterFile>filter.filter</FilterFile>
   <SavedFilterFilePath>C:/Users/student/Desktop/RA136/CatchTheFlowers/__xps/ise</SavedFilterFilePath>
+=======
+  <DateModified>2019-06-05T09:33:13</DateModified>
+  <ModuleName>system</ModuleName>
+  <SummaryTimeStamp>2019-06-05T09:33:13</SummaryTimeStamp>
+  <SavedFilePath>D:/RA93-2016/CatchTheFlowers/__xps/ise/system.xreport</SavedFilePath>
+  <FilterFile>filter.filter</FilterFile>
+  <SavedFilterFilePath>D:/RA93-2016/CatchTheFlowers/__xps/ise</SavedFilterFilePath>
+>>>>>>> Stashed changes
   <DateInitialized>2018-05-04T11:07:37</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>
