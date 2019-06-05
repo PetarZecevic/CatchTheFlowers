@@ -155,6 +155,7 @@ void drawMap()
 }
 
 //draw amount of coins
+/*
 void printNum(int row,int column,int num)
 {
 
@@ -187,9 +188,10 @@ void printNum(int row,int column,int num)
 
 	if(num==9)
 		drawSprite(24,64,column,row,8,8);
-}
+}*/
 
 //max coins 99, calls printNum for drawing left or right coin
+/*
 void printCoins()
 {
 	int l,r;
@@ -214,7 +216,7 @@ void printLives(){
 		printNum(8,0,l);
 	else
 		drawSprite(16,0,0,8,8,8);
-}
+}*/
 
 //Make items fall.
 void moveItems()

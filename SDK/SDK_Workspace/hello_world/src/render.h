@@ -10,5 +10,8 @@ void init();
 void drawBackgroundSprite(unsigned int row, unsigned int column, const BackgroundSprite background);
 void drawBunny(Bunny* bunny);
 void drawSprite(int out_x, int out_y, int spriteWidth, int spriteHeight, int spriteBytesPerPixel, const unsigned char* spriteData);
+void printNum(int row,int column,int num);
+void printCoins();
+void printLives();
 
 #endif /* RENDER_H_ */

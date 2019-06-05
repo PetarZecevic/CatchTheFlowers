@@ -1,10 +1,17 @@
 #include "render.h"
 
+
+
 #include "vga_periph_mem.h"
 #include "xparameters.h"
+#include "game_config.h"
 
 const BunnySprite bunny_left_1, bunny_left_2, bunny_right_1, bunny_right_2,
 	bunny_stable, bunny_transit_1, /*bunny_transit_2,*/ bunny_down_1;
+
+const BackgroundSprite zero,one,two,three,four,five,six,seven,eight,nine;
+
+//GameStats gameStats;
 
 void init()
 {
@@ -110,4 +117,54 @@ void drawBunny(Bunny* bunny)
 	default:
 		break;
 	}
+}
+
+void printNum(int row,int column,int num)
+{
+
+	if(num==0)
+		drawSprite(column, row, 16, 16, zero.bytes_per_pixel,zero.pixel_data);
+	else if(num==1)
+		drawSprite(column, row, 16, 16, one.bytes_per_pixel,one.pixel_data);
+	else if(num==2)
+		drawSprite(column, row, 16, 16, two.bytes_per_pixel,two.pixel_data);
+	else if(num==3)
+		drawSprite(column, row, 16, 16, three.bytes_per_pixel,three.pixel_data);
+	else if(num==4)
+		drawSprite(column, row, 16, 16, four.bytes_per_pixel,four.pixel_data);
+	else if(num==5)
+		drawSprite(column, row, 16, 16, five.bytes_per_pixel,five.pixel_data);
+	else if(num==6)
+		drawSprite(column, row, 16, 16, six.bytes_per_pixel,six.pixel_data);
+	else if(num==7)
+		drawSprite(column, row, 16, 16,seven.bytes_per_pixel,seven.pixel_data);
+	else if(num==8)
+		drawSprite(column, row, 16, 16, eight.bytes_per_pixel,eight.pixel_data);
+	if(num==9)
+		drawSprite(column, row, 16, 16, nine.bytes_per_pixel,nine.pixel_data);
+}
+void printCoins(GameStats gameStats)
+{
+	int l,r;
+	l = gameStats.coinsCollected / 10;
+	r = gameStats.coinsCollected % 10;
+	printNum(0,8,r);
+
+	if(l!=0)
+		printNum(0,0,l);
+	else
+		drawSprite(16,0,0,0,8,8);
+}
+
+//printing the number of lives left
+void printLives(GameStats gameStats){
+	int l,r;
+	l = gameStats.healthPoints / 10;
+	r = gameStats.healthPoints % 10;
+	printNum(8,8,r);
+
+	if(l!=0)
+		printNum(8,0,l);
+	else
+		drawSprite(16,0,0,8,8,8);
 }
