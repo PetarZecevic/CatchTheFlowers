@@ -10,7 +10,7 @@
 #include "object.h"
 
 extern const BunnySprite bunny_left_1, bunny_left_2, bunny_right_1, bunny_right_2,
-	bunny_stable, bunny_transit_1, bunny_down_1;
+	bunny_stable, bunny_transit_1, bunny_down_1,bunny_hurt;
 
 extern const BackgroundSprite rose_flower_1, rose_flower_2, yellow_flower_1, yellow_flower_2, trash,sky;
 //>>>>>>> Stashed changes
@@ -107,10 +107,11 @@ void drawBunny(Bunny* bunny)
 	case DOWN1:
 		drawSprite(col, row, 48, 80, bunny_down_1.bytes_per_pixel, bunny_down_1.pixel_data);
 		break;
-	/*
+
 	case HURT1:
-		drawSprite(col, row, 48, 80, bunny_hurt_2.bytes_per_pixel, bunny_hurt_2.pixel_data);
+		drawSprite(col, row, 48, 80, bunny_hurt.bytes_per_pixel, bunny_hurt.pixel_data);
 		break;
+	/*
 	case HURT2:
 		drawSprite(col, row, 48, 80, bunny_hurt_2.bytes_per_pixel, bunny_hurt_2.pixel_data);
 		break;
@@ -163,7 +164,7 @@ void printCoins(GameStats gameStats)
 
 //printing the number of lives left
 void printLives(GameStats gameStats){
-	int l,r;
+	int r;
 	r = gameStats.healthPoints;
 	printNum(3,18,r);
 
@@ -232,18 +233,18 @@ void drawEndGame()
 	unsigned int gameOver[15][20] = {
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,1,1,1,0,0,1,1,0,0,1,0,0,0,1,0,1,1,1,0},
-		{0,1,0,0,0,1,0,0,1,0,1,1,0,1,1,0,1,0,0,0},
-		{0,1,0,0,0,1,1,1,1,0,1,0,1,0,1,0,1,1,1,0},
-		{0,1,0,1,0,1,0,0,1,0,1,0,0,0,1,0,1,0,0,0},
-		{0,1,1,1,0,1,0,0,1,0,1,0,0,0,1,0,1,1,1,0},
+		{0,1,1,1,1,0,0,1,0,0,1,0,0,0,1,0,1,1,1,0},
+		{0,1,0,0,0,0,1,0,1,0,1,1,0,1,1,0,1,0,0,0},
+		{0,1,0,1,1,0,1,1,1,0,1,0,1,0,1,0,1,1,1,0},
+		{0,1,0,0,1,0,1,0,1,0,1,0,0,0,1,0,1,0,0,0},
+		{0,1,1,1,1,0,1,0,1,0,1,0,0,0,1,0,1,1,1,0},
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,1,1,1,0,1,0,0,0,1,0,1,1,1,0,1,1,1,0},
-		{0,0,1,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,1,0},
-		{0,0,1,0,1,0,0,1,0,1,0,0,1,1,1,0,1,1,1,0},
-		{0,0,1,0,1,0,0,1,0,1,0,0,1,0,0,0,1,1,0,0},
-		{0,0,1,1,1,0,0,0,1,0,0,0,1,1,1,0,1,0,1,0},
+		{0,1,1,1,1,0,1,0,0,0,1,0,1,1,1,0,1,1,1,0},
+		{0,1,0,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,1,0},
+		{0,1,0,0,1,0,0,1,0,1,0,0,1,1,1,0,1,1,1,0},
+		{0,1,0,0,1,0,0,1,0,1,0,0,1,0,0,0,1,1,0,0},
+		{0,1,1,1,1,0,0,0,1,0,0,0,1,1,1,0,1,0,1,0},
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	};
 

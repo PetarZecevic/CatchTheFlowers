@@ -65,6 +65,7 @@ void Bunny_ChangeFrame(Bunny* bunny)
 		bunny->transitDir = NONE;
 		if(bunny->frame == HURT1)
 			bunny->frame++;
+
 		else if(bunny->frame == HURT2)
 		{
 			bunny->state = UP;

@@ -51,69 +51,7 @@ const int bunnyColumns[3] = {2, 8, 14};
 
 const int ANIMATION_SPEED = 80000, ITEM_SPEED = 50000, ROTATION_SPEED = 50000, INSERT_SPEED = 600000, TRAIL_LENGTH = 4;
 
-//draw amount of coins
-/*
-void printNum(int row,int column,int num)
-{
 
-	if(num==0)
-		drawSprite(16,48,column,row,8,8);
-
-	else if(num==1)
-		drawSprite(24,48,column,row,8,8);
-
-	else if(num==2)
-		drawSprite(32,48,column,row,8,8);
-
-	else if(num==3)
-		drawSprite(40,48,column,row,8,8);
-
-	else if(num==4)
-		drawSprite(16,56,column,row,8,8);
-
-	else if(num==5)
-		drawSprite(24,56,column,row,8,8);
-
-	else if(num==6)
-		drawSprite(32,56,column,row,8,8);
-
-	else if(num==7)
-		drawSprite(40,56,column,row,8,8);
-
-	else if(num==8)
-		drawSprite(16,64,column,row,8,8);
-
-	if(num==9)
-		drawSprite(24,64,column,row,8,8);
-}*/
-
-//max coins 99, calls printNum for drawing left or right coin
-/*
-void printCoins()
-{
-	int l,r;
-	l = gameStats.coinsCollected / 10;
-	r = gameStats.coinsCollected % 10;
-	printNum(0,8,r);
-
-	if(l!=0)
-		printNum(0,0,l);
-	else
-		drawSprite(16,0,0,0,8,8);
-}
-
-//printing the number of lives left
-void printLives(){
-	int l,r;
-	l = gameStats.healthPoints / 10;
-	r = gameStats.healthPoints % 10;
-	printNum(8,8,r);
-
-	if(l!=0)
-		printNum(8,0,l);
-	else
-		drawSprite(16,0,0,8,8,8);
-}*/
 
 void initObjectMap(Object* map)
 {
