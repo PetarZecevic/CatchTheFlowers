@@ -1,5 +1,1 @@
-<<<<<<< Updated upstream
- -p spartan6 -lang vhdl$(PROJECT_SEARCHPATHOPT) $(GLOBAL_SEARCHPATHOPT) -msg __xps/ise/xmsgprops.lst -s isim -X C:/Users/student/Desktop/RA136/CatchTheFlowers/
-=======
  -p spartan6 -lang vhdl$(PROJECT_SEARCHPATHOPT) $(GLOBAL_SEARCHPATHOPT) -msg __xps/ise/xmsgprops.lst -s isim -X D:/RA93-2016/CatchTheFlowers/
->>>>>>> Stashed changes

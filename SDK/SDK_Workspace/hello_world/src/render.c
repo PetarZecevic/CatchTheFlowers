@@ -4,19 +4,18 @@
 
 #include "vga_periph_mem.h"
 #include "xparameters.h"
-<<<<<<< Updated upstream
+//<<<<<<< Updated upstream
 #include "game_config.h"
-=======
+//=======
 #include "object.h"
 
 extern const BunnySprite bunny_left_1, bunny_left_2, bunny_right_1, bunny_right_2,
 	bunny_stable, bunny_transit_1, bunny_down_1;
 
 extern const BackgroundSprite rose_flower_1, rose_flower_2, yellow_flower_1, yellow_flower_2, trash;
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
 
-
-const BackgroundSprite zero,one,two,three,four,five,six,seven,eight,nine;
+const BackgroundSprite zero,one,two,three,four,five,six,seven,eight,nine,sky;
 
 //GameStats gameStats;
 
@@ -121,7 +120,7 @@ void drawBunny(Bunny* bunny)
 	}
 }
 
-<<<<<<< Updated upstream
+//<<<<<<< Updated upstream
 void printNum(int row,int column,int num)
 {
 
@@ -170,7 +169,8 @@ void printLives(GameStats gameStats){
 		printNum(8,0,l);
 	else
 		drawSprite(16,0,0,8,8,8);
-=======
+//=======
+}
 
 void drawOneObject(Object* obj)
 {
@@ -221,5 +221,45 @@ void drawObjectMap(Object* map)
 			}
 		}
 	}
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
+}
+
+void drawEndGame()
+{
+
+	unsigned int gameOver[15][20] = {
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,1,1,1,0,0,1,1,0,0,1,0,0,0,1,0,1,1,1,0},
+		{0,1,0,0,0,1,0,0,1,0,1,1,0,1,1,0,1,0,0,0},
+		{0,1,0,0,0,1,1,1,1,0,1,0,1,0,1,0,1,1,1,0},
+		{0,1,0,1,0,1,0,0,1,0,1,0,0,0,1,0,1,0,0,0},
+		{0,1,1,1,0,1,0,0,1,0,1,0,0,0,1,0,1,1,1,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,1,1,1,0,1,0,0,0,1,0,1,1,1,0,1,1,1,0},
+		{0,0,1,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,1,0},
+		{0,0,1,0,1,0,0,1,0,1,0,0,1,1,1,0,1,1,1,0},
+		{0,0,1,0,1,0,0,1,0,1,0,0,1,0,0,0,1,1,0,0},
+		{0,0,1,1,1,0,0,0,1,0,0,0,1,1,1,0,1,0,1,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+	};
+
+	int row,column;
+	while(1)
+	{
+		for (row = 0; row < 15; row++)
+		{
+			for (column = 0; column < 20; column++)
+			{
+				if (gameOver[row][column] == 0)
+					drawSprite(column*16, row*16, 16, 16, sky.bytes_per_pixel, sky.pixel_data);
+				else if (gameOver[row][column] == 1)
+				{
+					drawSprite(column*16, row*16, 16, 16, rose_flower_1.bytes_per_pixel, rose_flower_1.pixel_data);
+				}
+
+			}
+		}
+	}
 }

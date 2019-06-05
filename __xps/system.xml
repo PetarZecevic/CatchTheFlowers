@@ -1,13 +1,6 @@
-<<<<<<< Updated upstream
-<EDKSYSTEM EDKVERSION="14.6" EDWVERSION="1.2" TIMESTAMP="Wed Jun 05 11:44:11 2019">
-
-  <SYSTEMINFO ARCH="spartan6" DEVICE="xc6slx45" PACKAGE="fgg676" PART="xc6slx45fgg676-2" SOURCE="C:/Users/student/Desktop/RA136/CatchTheFlowers/system.xmp" SPEEDGRADE="-2"/>
-=======
-
-<EDKSYSTEM EDKVERSION="14.6" EDWVERSION="1.2" TIMESTAMP="Wed Jun 05 09:33:14 2019">
+<EDKSYSTEM EDKVERSION="14.6" EDWVERSION="1.2" TIMESTAMP="Wed Jun 05 14:05:55 2019">
 
   <SYSTEMINFO ARCH="spartan6" DEVICE="xc6slx45" PACKAGE="fgg676" PART="xc6slx45fgg676-2" SOURCE="D:/RA93-2016/CatchTheFlowers/system.xmp" SPEEDGRADE="-2"/>
->>>>>>> Stashed changes
 
   <EXTERNALPORTS>
     <PORT DIR="O" MHS_INDEX="0" NAME="RS232_Uart_1_sout" SIGNAME="RS232_Uart_1_sout">

@@ -24,12 +24,21 @@
 #include "vga_periph_mem.h"
 #include "xparameters.h"
 #include "gameplay.h"
-#include "game_config.h"
+#include "controls.h"
+//#include "game_config.h"
 #include "bunny.h"
 #include "sprite.h"
 #include "render.h"
 
 #define ITEM_STEP 3
+#define SIZEROW 15
+#define SIZECOLUMN 20
+
+typedef struct{
+	int healthPoints;
+	int coinsCollected;
+}GameStats;
+
 
 extern const BackgroundSprite ground, sky;
 
@@ -163,7 +172,8 @@ void updateBunnies(Bunny bunnies[])
 		// Added test case for HURT state.
 		else if(pressedKey == 'u')
 		{
-			bunnies[0].state = HURT;
+			//bunnies[0].state = HURT;
+			drawEndGame();
 		}
 	}
 
