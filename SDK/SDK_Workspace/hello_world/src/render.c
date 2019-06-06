@@ -252,3 +252,5 @@ void startValues(){
 	drawSprite(19*16, 3*16, 16, 16, life.bytes_per_pixel, life.pixel_data);
 	printNum(3,18,9);
 }
+
+

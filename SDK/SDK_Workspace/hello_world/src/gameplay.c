@@ -224,8 +224,8 @@ void clearObjectPaths(Object* map)
 				{
 					drawSprite(column, row - TRAIL_LENGTH * ITEM_STEP, 16, TRAIL_LENGTH * ITEM_STEP, 3, sky.pixel_data);
 				}
-				if(row < 4 && row >= 1){
-					drawSprite(column, 1, 16, row-1, 3, sky.pixel_data);
+				else if(row < TRAIL_LENGTH*ITEM_STEP){
+					drawSprite(column, 0, 16, row, 3, sky.pixel_data);
 				}
 			}
 		}
