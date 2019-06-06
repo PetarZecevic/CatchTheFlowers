@@ -1,8 +1,12 @@
 /* GIMP RGBA C-Source image dump (4.c) */
-#include "sprite.h"
 
-const ItemSprite four ={
-	16, 16, 4,
+static const struct {
+  guint  	 width;
+  guint  	 height;
+  guint  	 bytes_per_pixel; /* 2:RGB16, 3:RGB, 4:RGBA */ 
+  guint8 	 pixel_data[16 * 16 * 4 + 1];
+} four = {
+  16, 16, 4,
   "\371\377\377\377\371\377\377\377\372\377\377\377\373\377\377\377\374\377"
   "\377\377\374\377\377\377\374\377\377\377\373\377\377\377\367\376\377\377"
   "\363\376\377\377\360\376\377\377\357\377\377\377\360\377\377\377\360\377"
