@@ -7,6 +7,8 @@
 
 void printNum(int row,int column,int num);
 void printCoins();
+// Init graphics.
+void init();
 void initObjectMap(Object* map);
 // Get user input and update bunnies transit direction.
 void updateBunnies(Bunny bunnies[]);

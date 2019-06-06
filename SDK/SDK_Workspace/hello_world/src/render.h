@@ -5,8 +5,6 @@
 #include "sprite.h"
 #include "object.h"
 
-// Init graphics.
-void init();
 // We consider row and column as sprite of dimension 16x16.
 void drawBackgroundSprite(unsigned int row, unsigned int column, const BackgroundSprite background);
 void drawBunny(Bunny* bunny);

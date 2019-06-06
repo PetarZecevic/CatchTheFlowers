@@ -12,35 +12,11 @@
 extern const BunnySprite bunny_left_1, bunny_left_2, bunny_right_1, bunny_right_2,
 	bunny_stable, bunny_transit_1, bunny_down_1,bunny_hurt;
 
-extern const BackgroundSprite rose_flower_1, rose_flower_2, yellow_flower_1, yellow_flower_2, trash,sky;
-//>>>>>>> Stashed changes
+extern const BackgroundSprite rose_flower_1, rose_flower_2, yellow_flower_1, yellow_flower_2, trash, trash_broke, sky;
 
 extern const ItemSprite zero,one,two,three,four,five,six,seven,eight,nine,life;
 
-//GameStats gameStats;
 
-void init()
-{
-
-	VGA_PERIPH_MEM_mWriteMemory(
-				XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x00, 0x0); // direct mode   0
-	VGA_PERIPH_MEM_mWriteMemory(
-			XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x04, 0x3); // display_mode  1
-	VGA_PERIPH_MEM_mWriteMemory(
-			XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x08, 0x0); // show frame      2
-	VGA_PERIPH_MEM_mWriteMemory(
-			XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x0C, 0xff); // font size       3
-	VGA_PERIPH_MEM_mWriteMemory(
-			XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x10, 0xFFFFFF); // foreground 4
-	VGA_PERIPH_MEM_mWriteMemory(
-			XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x14,0x008000); // background color 5
-	VGA_PERIPH_MEM_mWriteMemory(
-			XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x18, 0xFF0000); // frame color      6
-	VGA_PERIPH_MEM_mWriteMemory(
-			XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x20, 1);
-}
-
-// Drawing RGB 565 format.
 void drawSprite(int out_x, int out_y, int spriteWidth, int spriteHeight, int spriteBytesPerPixel, const unsigned char* spriteData)
 {
 	static int x, y, ox, oy, oi, ii, R, G, B, RGB;
@@ -115,7 +91,6 @@ void drawBunny(Bunny* bunny)
 	}
 }
 
-//<<<<<<< Updated upstream
 void printNum(int row,int column,int num)
 {
 
@@ -142,6 +117,7 @@ void printNum(int row,int column,int num)
 	if(num==9)
 		drawSprite(column, row, 16, 16, nine.bytes_per_pixel,nine.pixel_data);
 }
+
 void printCoins(GameStats gameStats)
 {
 	int l,r;
@@ -166,7 +142,6 @@ void printLives(GameStats gameStats){
 		printNum(8,0,l);
 	else
 		drawSprite(16,0,0,8,8,8);*/
-//=======
 }
 
 void drawOneObject(Object* obj)
@@ -201,7 +176,10 @@ void drawOneObject(Object* obj)
 	}
 	else
 	{
-		drawSprite(column, row, 16, 16, 3, trash.pixel_data);
+		if(obj->position)
+			drawSprite(column, row, 16, 16, 3, trash_broke.pixel_data);
+		else
+			drawSprite(column, row, 16, 16, 3, trash.pixel_data);
 	}
 }
 
@@ -218,7 +196,6 @@ void drawObjectMap(Object* map)
 			}
 		}
 	}
-//>>>>>>> Stashed changes
 }
 
 void drawEndGame()

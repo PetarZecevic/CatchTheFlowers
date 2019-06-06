@@ -1,11 +1,7 @@
 /* GIMP RGB C-Source image dump (2.c) */
+#include "sprite.h"
 
-static const struct {
-  unsigned int 	 width;
-  unsigned int 	 height;
-  unsigned int 	 bytes_per_pixel; /* 2:RGB16, 3:RGB, 4:RGBA */ 
-  unsigned char	 pixel_data[16 * 16 * 3 + 1];
-} two = {
+const ItemSprite two = {
   16, 16, 3,
   "\365\376\375\377\365\376\373\377\365\375\370\377\365\373\363\377\377\377"
   "\374\377\377\373\377\377\367\376\377\363\376\377\360\376\377\357\377\377"

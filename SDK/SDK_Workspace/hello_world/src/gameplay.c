@@ -52,6 +52,27 @@ const int bunnyColumns[3] = {2, 8, 14};
 const int ANIMATION_SPEED = 80000, ITEM_SPEED = 50000, ROTATION_SPEED = 50000, INSERT_SPEED = 600000, TRAIL_LENGTH = 4;
 
 
+void init()
+{
+
+	VGA_PERIPH_MEM_mWriteMemory(
+				XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x00, 0x0); // direct mode   0
+	VGA_PERIPH_MEM_mWriteMemory(
+			XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x04, 0x3); // display_mode  1
+	VGA_PERIPH_MEM_mWriteMemory(
+			XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x08, 0x0); // show frame      2
+	VGA_PERIPH_MEM_mWriteMemory(
+			XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x0C, 0xff); // font size       3
+	VGA_PERIPH_MEM_mWriteMemory(
+			XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x10, 0xFFFFFF); // foreground 4
+	VGA_PERIPH_MEM_mWriteMemory(
+			XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x14,0x008000); // background color 5
+	VGA_PERIPH_MEM_mWriteMemory(
+			XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x18, 0xFF0000); // frame color      6
+	VGA_PERIPH_MEM_mWriteMemory(
+			XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x20, 1);
+}
+
 
 void initObjectMap(Object* map)
 {
@@ -63,12 +84,11 @@ void initObjectMap(Object* map)
 			map[i*MAX_OBJECTS + j].row = 0;
 			map[i*MAX_OBJECTS + j].valid = false;
 			map[i*MAX_OBJECTS + j].isFlower = false;
+			map[i*MAX_OBJECTS + j].position = false;
 			map[i*MAX_OBJECTS + j].column = bunnyColumns[i] + 1;
 		}
 	}
 }
-
-
 
 void updateObjectMap(Object* map)
 {
@@ -164,7 +184,7 @@ void insertObjects(Object* map)
 					map[path * MAX_OBJECTS + i].roseOrYellow = false;
 				}
 			}
-			map[path * MAX_OBJECTS + i].position = true;
+			map[path * MAX_OBJECTS + i].position = false;
 			map[path * MAX_OBJECTS + i].valid = true;
 			break;
 		}
@@ -224,20 +244,18 @@ void checkCollisions(Object* map, Bunny bunnies[])
 			{
 				if(map[i * MAX_OBJECTS + j].row >= 144)
 				{
-					map[i * MAX_OBJECTS + j].valid = false;
 					// Check if bunny is hurt.
-
 					//I checked frame because with states there is a problem
 					if((bunnies[i].frame != DOWN1) && !(map[i * MAX_OBJECTS + j].isFlower))
 					{
 						bunnies[i].state = HURT;
 						gameStats.healthPoints--;
 						printLives(gameStats);
-					}else if((bunnies[i].frame==DOWN1) && (map[i * MAX_OBJECTS + j].isFlower))
+					}else if((bunnies[i].frame == DOWN1) && (map[i * MAX_OBJECTS + j].isFlower))
 					{
 						gameStats.healthPoints--;
 						printLives(gameStats);
-					}else if(bunnies[i].frame!=DOWN  && (map[i * MAX_OBJECTS + j].isFlower))
+					}else if(bunnies[i].frame != DOWN1  && (map[i * MAX_OBJECTS + j].isFlower))
 					{
 						if(map[i * MAX_OBJECTS + j].roseOrYellow){
 							gameStats.coinsCollected++;
@@ -247,7 +265,25 @@ void checkCollisions(Object* map, Bunny bunnies[])
 							printCoins(gameStats);
 						}
 					}
-					drawBackgroundSprite(9, map[i * MAX_OBJECTS + j].column, sky);
+
+					// Remove sprite from map or brake trash.
+					if(!map[i*MAX_OBJECTS + j].isFlower)
+					{
+						if(map[i*MAX_OBJECTS+j].position)
+						{
+							drawBackgroundSprite(9, map[i * MAX_OBJECTS + j].column, sky); // remove trash.
+							map[i * MAX_OBJECTS + j].valid = false;
+						}
+						else if(bunnies[i].frame == DOWN1)
+						{
+							map[i*MAX_OBJECTS + j].position = true; // brake trash.
+						}
+					}
+					else
+					{
+						drawBackgroundSprite(9, map[i * MAX_OBJECTS + j].column, sky);
+						map[i * MAX_OBJECTS + j].valid = false;
+					}
 				}
 			}
 		}
