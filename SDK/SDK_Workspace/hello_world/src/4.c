@@ -1,9 +1,3 @@
-/*
- * 4.c
- *
- *  Created on: 06.06.2019.
- *      Author: student
- */
 #include "sprite.h"
 
 const ItemSprite four = {

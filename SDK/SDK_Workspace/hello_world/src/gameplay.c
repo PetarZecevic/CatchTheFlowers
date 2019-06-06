@@ -82,10 +82,10 @@ void initObjectMap(Object* map)
 		for(j = 0; j < MAX_OBJECTS; j++)
 		{
 			map[i*MAX_OBJECTS + j].row = 0;
+			map[i*MAX_OBJECTS + j].column = bunnyColumns[i] + 1;
 			map[i*MAX_OBJECTS + j].valid = false;
 			map[i*MAX_OBJECTS + j].isFlower = false;
 			map[i*MAX_OBJECTS + j].position = false;
-			map[i*MAX_OBJECTS + j].column = bunnyColumns[i] + 1;
 		}
 	}
 }
@@ -167,7 +167,7 @@ void insertObjects(Object* map)
 		if(!map[path * MAX_OBJECTS + i].valid) // bug was here.
 		{
 			map[path * MAX_OBJECTS + i].row = 0;
-			if(flowerOrRock > 7)
+			if(flowerOrRock > 5) // probability for rock appearing.
 			{
 				map[path * MAX_OBJECTS + i].isFlower = false;
 			}
@@ -266,24 +266,9 @@ void checkCollisions(Object* map, Bunny bunnies[])
 						}
 					}
 
-					// Remove sprite from map or brake trash.
-					if(!map[i*MAX_OBJECTS + j].isFlower)
-					{
-						if(map[i*MAX_OBJECTS+j].position)
-						{
-							drawBackgroundSprite(9, map[i * MAX_OBJECTS + j].column, sky); // remove trash.
-							map[i * MAX_OBJECTS + j].valid = false;
-						}
-						else if(bunnies[i].frame == DOWN1)
-						{
-							map[i*MAX_OBJECTS + j].position = true; // brake trash.
-						}
-					}
-					else
-					{
-						drawBackgroundSprite(9, map[i * MAX_OBJECTS + j].column, sky);
-						map[i * MAX_OBJECTS + j].valid = false;
-					}
+					// Always remove object.
+					drawBackgroundSprite(9, map[i * MAX_OBJECTS + j].column, sky);
+					map[i * MAX_OBJECTS + j].valid = false;
 				}
 			}
 		}
@@ -371,7 +356,9 @@ void gameLoop()
 		itemRotationSpeed++;
 		itemInsertSpeed++;
 		bunnyMovingSpeed++;
-		if(gameStats.healthPoints==0){
+
+		if(gameStats.healthPoints==0)
+		{
 			drawEndGame();
 			break;
 		}

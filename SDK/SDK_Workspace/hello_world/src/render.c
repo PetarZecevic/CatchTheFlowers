@@ -220,6 +220,7 @@ void drawEndGame()
 	};
 
 	int row,column;
+	bool flag = false;
 	while(1)
 	{
 		for (row = 0; row < 15; row++)
@@ -228,13 +229,18 @@ void drawEndGame()
 			{
 				if (gameOver[row][column] == 0)
 					drawSprite(column*16, row*16, 16, 16, sky.bytes_per_pixel, sky.pixel_data);
-				else if (gameOver[row][column] == 1)
+				else if ((gameOver[row][column] == 1) && !flag)
 				{
 					drawSprite(column*16, row*16, 16, 16, rose_flower_1.bytes_per_pixel, rose_flower_1.pixel_data);
+				}else if((gameOver[row][column] == 1) && flag)
+				{
+					drawSprite(column*16, row*16, 16, 16, rose_flower_2.bytes_per_pixel, rose_flower_2.pixel_data);
 				}
-
 			}
 		}
+
+		flag = !flag;
+		for(int i = 0; i < 50000; i++); // Delay.
 	}
 }
 
