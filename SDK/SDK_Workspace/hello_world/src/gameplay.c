@@ -109,12 +109,6 @@ void updateBunnies(Bunny bunnies[])
 			// Left bunny update.
 			flipBunnyBasket(&bunnies[1]);
 		}
-		// Added test case for HURT state.
-		else if(pressedKey == 'u')
-		{
-			//bunnies[0].state = HURT;
-			drawEndGame();
-		}
 	}
 
 }

@@ -92,7 +92,7 @@ void drawBunny(Bunny* bunny)
 	case LEFT1:
 		drawSprite(col, row, 48, 80, bunny_left_1.bytes_per_pixel, bunny_left_1.pixel_data);
 		break;
-	case CENTER:
+	case CENTER1:
 		drawSprite(col, row, 48, 80, bunny_stable.bytes_per_pixel, bunny_stable.pixel_data);
 		break;
 	case RIGHT1:
@@ -107,15 +107,9 @@ void drawBunny(Bunny* bunny)
 	case DOWN1:
 		drawSprite(col, row, 48, 80, bunny_down_1.bytes_per_pixel, bunny_down_1.pixel_data);
 		break;
-
 	case HURT1:
 		drawSprite(col, row, 48, 80, bunny_hurt.bytes_per_pixel, bunny_hurt.pixel_data);
 		break;
-	/*
-	case HURT2:
-		drawSprite(col, row, 48, 80, bunny_hurt_2.bytes_per_pixel, bunny_hurt_2.pixel_data);
-		break;
-	*/
 	default:
 		break;
 	}

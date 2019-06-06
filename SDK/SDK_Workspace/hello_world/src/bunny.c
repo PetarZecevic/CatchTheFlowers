@@ -3,7 +3,7 @@
 void Bunny_Init(Bunny* bunny, int row, int column)
 {
 	bunny->state = UP;
-	bunny->frame = CENTER;
+	bunny->frame = CENTER1;
 	bunny->movingDir = MOV_LEFT;
 	bunny->transitDir = NONE;
 	bunny->row = row;
@@ -56,7 +56,7 @@ void Bunny_ChangeFrame(Bunny* bunny)
 		{
 			// Finished transition, return to central position and start moving to left.
 			bunny->state = UP;
-			bunny->frame = CENTER;
+			bunny->frame = CENTER1;
 			bunny->movingDir = MOV_LEFT;
 			bunny->transitDir = NONE;
 		}
@@ -64,12 +64,9 @@ void Bunny_ChangeFrame(Bunny* bunny)
 	case HURT:
 		bunny->transitDir = NONE;
 		if(bunny->frame == HURT1)
-			bunny->frame++;
-
-		else if(bunny->frame == HURT2)
 		{
+			bunny->frame = CENTER1;
 			bunny->state = UP;
-			bunny->frame = CENTER;
 		}
 		else
 			bunny->frame = HURT1;
