@@ -49,7 +49,7 @@ Object matrix[PATHS][MAX_OBJECTS];
 
 const int bunnyColumns[3] = {2, 8, 14};
 
-const int ANIMATION_SPEED = 80000, ITEM_SPEED = 50000, ROTATION_SPEED = 50000, INSERT_SPEED = 600000, TRAIL_LENGTH = 4;
+int ANIMATION_SPEED, ITEM_SPEED, ROTATION_SPEED, INSERT_SPEED, TRAIL_LENGTH;
 
 
 void init()
@@ -264,6 +264,13 @@ void checkCollisions(Object* map, Bunny bunnies[])
 							gameStats.coinsCollected+=2;
 							printCoins(gameStats);
 						}
+
+						if(gameStats.coinsCollected%10==0){
+							if(ITEM_SPEED >= 20000)
+								ITEM_SPEED -= 5000;
+							if(INSERT_SPEED >= 300000)
+								INSERT_SPEED -= 50000;
+						}
 					}
 
 					// Always remove object.
@@ -277,6 +284,13 @@ void checkCollisions(Object* map, Bunny bunnies[])
 
 void gameLoop()
 {
+
+	// Init game parameters.
+	ANIMATION_SPEED = 80000;
+	ITEM_SPEED = 30000;
+	ROTATION_SPEED = 50000;
+	INSERT_SPEED = 400000;
+	TRAIL_LENGTH = 4;
 
 	Bunny bunnies[3];
 
