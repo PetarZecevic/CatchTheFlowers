@@ -1,7 +1,7 @@
 
-<EDKSYSTEM EDKVERSION="14.6" EDWVERSION="1.2" TIMESTAMP="Fri Jun 07 15:23:52 2019">
+<EDKSYSTEM EDKVERSION="14.6" EDWVERSION="1.2" TIMESTAMP="Sun Jun 09 12:58:00 2019">
 
-  <SYSTEMINFO ARCH="spartan6" DEVICE="xc6slx45" PACKAGE="fgg676" PART="xc6slx45fgg676-2" SOURCE="D:/ra93-2016/CatchTheFlowers/system.xmp" SPEEDGRADE="-2"/>
+  <SYSTEMINFO ARCH="spartan6" DEVICE="xc6slx45" PACKAGE="fgg676" PART="xc6slx45fgg676-2" SOURCE="D:/faks/III/2_semestar/lprs2/lab/CatchTheFlowers/system.xmp" SPEEDGRADE="-2"/>
 
   <EXTERNALPORTS>
     <PORT DIR="O" MHS_INDEX="0" NAME="RS232_Uart_1_sout" SIGNAME="RS232_Uart_1_sout">
@@ -1909,7 +1909,7 @@
       <DESCRIPTION TYPE="SHORT">MicroBlaze</DESCRIPTION>
       <DESCRIPTION TYPE="LONG">The MicroBlaze 32 bit soft processor</DESCRIPTION>
       <DOCUMENTATION>
-        <DOCUMENT SOURCE="C:/Xilinx/14.6/ISE_DS/EDK/hw/XilinxProcessorIPLib/pcores/microblaze_v8_50_b/doc/microblaze.pdf" TYPE="IP"/>
+        <DOCUMENT SOURCE="D:/Xilinx/14.6/ISE_DS/EDK/hw/XilinxProcessorIPLib/pcores/microblaze_v8_50_b/doc/microblaze.pdf" TYPE="IP"/>
       </DOCUMENTATION>
       <LICENSEINFO ICON_NAME="ps_core_preferred"/>
       <PARAMETERS>
