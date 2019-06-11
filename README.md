@@ -1,2 +1,2 @@
-Link ka video snimku igrice:
+Link to video:
 https://www.youtube.com/watch?v=ZF1-MZJUNQA
